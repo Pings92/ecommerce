@@ -9,8 +9,17 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Coucou tout le monde</h1>
+
 </div>
 <ul>
+    {% for theName in names_students %}
+        <li> {{theName|upper}} </li>
+    {% endfor %}
+
+    {% if userAge > 18 %}
+        <li> Vous êtes majeur. </li>
+    {% else %}
+        <li> Vous êtes mineur </li>
+    {% endif %}
 
 {% endblock %}
