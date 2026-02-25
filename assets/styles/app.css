@@ -1,3 +1,20 @@
 body {
     background-color: skyblue;
 }
+.loginform{
+    width: 400px;
+    text-align: center;
+}
+.containerForm{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+.form-control{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;  
+}
