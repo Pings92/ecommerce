@@ -23,9 +23,24 @@ final class UserController extends AbstractController
     #[Route('/admin/users/editRole/{id}', name: 'app_user_edit_role')]
     public function editRole(User $user, EntityManagerInterface $entityManagerInterface, UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
+            $userRole = $user->getRoles();
 
-        ]);
+            if(in_array('ROLE_USER', $userRole)) {
+                $user->setRoles(['ROLE_EDITOR']);
+                $entityManagerInterface->persist($user);
+                $entityManagerInterface->flush();
+                $this->addFlash('success', 'Rôle modifié avec succès');
+                return $this->redirectToRoute('app_user');
+            }
+            else{
+                $user->setRoles(['ROLE_USER']);
+                $entityManagerInterface->persist($user);
+                $entityManagerInterface->flush();
+                $this->addFlash('success', 'Rôle modifié avec succès');
+                return $this->redirectToRoute('app_user');
+            }
+            
+            return $this->redirectToRoute('app_user');
     }
 
     // #[Route('/admin/users/delete/{id}', name: 'app_user_delete')]

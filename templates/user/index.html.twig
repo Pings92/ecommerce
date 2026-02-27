@@ -21,8 +21,6 @@
             <td>{{user.lastName}}</td>
             <td>{{user.email}}</td>
             <td>
-                <td>
-                {# <td>{{user.roles}}</td> #}
                     {% if ('ROLE_ADMIN' in user.roles) %}
                         <span class="text-primary">Administrateur</span>
                     {% elseif ('ROLE_EDITOR' in user.roles) %}
@@ -30,14 +28,14 @@
                     {% else %}
                         <span class="text-secondary">Client</span>
                     {% endif %}
-                </td>
-                {% if('ROLE_ADMIN'in user.roles)%}
-                    <td><a href="rien pour le moment" class="btn btn-outline-warning">Modifier</a></td>
+
+                {% if('ROLE_ADMIN'not in user.roles)%}
+                    <a href="{{ path('app_user_edit_role', {'id': user.id}) }}" class="btn btn-outline-warning">Modifier</a>
                 {% endif %}
             </td>
             <td> 
             {% if('ROLE_ADMIN' not in user.roles) %}
-                <a href="rien pour le moment" class="btn btn-danger">Delete</a>
+                <a href="#" class="btn btn-danger">Delete</a>
             {% endif %}
             </td>
         </tr>
