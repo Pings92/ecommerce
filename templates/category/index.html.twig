@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Liste des catégories</h1>
      {#} on affiche un titre pour la page qui liste les catégories #}
-     {% include 'category/layouts/_flash_message.html.twig' %} {#} on inclut le template _flash_message.html.twig qui se trouve dans le dossier category/layouts, ce template contient le code pour afficher les messages flash (succès, erreur, etc.) #}
+     {% include 'layouts/_flash_message.html.twig' %} {#} on inclut le template _flash_message.html.twig qui se trouve dans le dossier category/layouts, ce template contient le code pour afficher les messages flash (succès, erreur, etc.) #}
 <table class='table'>
         <tr>
             <th>Nom de la catégorie</th>
