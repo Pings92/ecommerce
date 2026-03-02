@@ -15,13 +15,13 @@ class Category
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, unique: true)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $name = null;
 
     /**
      * @var Collection<int, SubCategory>
      */
-    #[ORM\OneToMany(targetEntity: SubCategory::class, mappedBy: 'category', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: SubCategory::class, mappedBy: 'category')]
     private Collection $subCategories;
 
     public function __construct()
@@ -29,7 +29,7 @@ class Category
         $this->subCategories = new ArrayCollection();
     }
 
-    public function getId(): ?int
+     public function getId(): ?int
     {
         return $this->id;
     }
@@ -75,4 +75,5 @@ class Category
 
         return $this;
     }
+   
 }
