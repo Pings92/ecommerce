@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\AddProductHistory;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,9 +50,17 @@ final class ProductController extends AbstractController
             }
             $entityManager->persist($product);
             $entityManager->flush();
+
+            $stockHistory = new AddProductHistory();
+            $stockHistory->setQuantity($product->getStock());
+            $stockHistory->setProduct($product);
+            $stockHistory->setCreatedAt(new DateTimeImmutable());
+            $entityManager->persist($stockHistory);
+            $entityManager->flush();
+
             $this->addFlash('success', "Le produit à bien été créé.");
 
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER); //
         }
 
         return $this->render('product/new.html.twig', [
@@ -62,7 +72,7 @@ final class ProductController extends AbstractController
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
-        
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
         ]);
