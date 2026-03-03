@@ -19,6 +19,7 @@ class ProductType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('price')
+            ->add('stock')
             ->add('images', FileType::class, [
                 'label' => 'Image du produit',
                 'mapped' => false,
@@ -39,7 +40,7 @@ class ProductType extends AbstractType
             )
             ->add('subCategory', EntityType::class, [
                 'class' => SubCategory::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
             ])
         ;
