@@ -24,18 +24,19 @@ class ProductType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'constraints' =>[
-                    new File([
-                    'maxSize' => '1024k',
-                    'mimeTypes' => [
+                    new File(
+                    maxSize : '1024k',
+                    mimeTypes : [
                         'image/jpeg',
                         'image/png',
                         'image/jpg',
-                        'image/webp'
+                        'image/webp',
                     ],
-                    'mineTypesMessage' => 'Veuillez choisir un fichier de type image valide(jpeg, png, jpg, webp)!!',
-                ])
-            ]
-            ])
+                    maxSizeMessage: 'Votre image ne doit pas dépasser 024ko',
+                    mimeTypesMessage : 'Veuillez choisir un fichier de type image valide(jpeg, png, jpg, webp)!!',
+                )
+            ]]
+            )
             ->add('subCategory', EntityType::class, [
                 'class' => SubCategory::class,
                 'choice_label' => 'id',

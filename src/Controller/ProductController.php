@@ -32,7 +32,7 @@ final class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $image =$form->getData();
+            $image =$form->get('images')->getData();
 
             if($image){
                 $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
@@ -44,7 +44,7 @@ final class ProductController extends AbstractController
                         ($this->getParameter('image_directory'), 
                         $newFileImageName);
                 }catch (FileException $exception){}
-                $product->setImage($newFileImageName);
+                $product->setImages($newFileImageName);
             }
             $entityManager->persist($product);
             $entityManager->flush();
