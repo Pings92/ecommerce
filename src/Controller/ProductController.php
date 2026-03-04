@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\AddProductHistory;
 use App\Entity\Product;
+use App\Form\AddProductHistoryType;
 use App\Form\ProductType;
+use App\Form\ProductUpdateType;
+use App\Repository\AddProductHistoryRepository;
 use App\Repository\ProductRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use DateTimeImmutable;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,17 +82,29 @@ final class ProductController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, SluggerInterface $slugger, Product $product, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductUpdateType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image =$form->get('images')->getData();
+
+            if($image){
+                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeImageName = $slugger->slug($originalName);
+                $newFileImageName = $safeImageName.'-'.uniqid().'.'.$image->guessExtension();
+
+                try{
+                    $image->move
+                        ($this->getParameter('image_directory'), 
+                        $newFileImageName);
+                }catch (FileException $exception){}
+                $product->setImages($newFileImageName);
+            }
             $entityManager->flush();
-            $this->addFlash('success', "Le produit a bien été modifié.");
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            return($this->redirectToRoute('app_product_index'));
         }
-            
 
         return $this->render('product/edit.html.twig', [
             'product' => $product,
@@ -109,4 +124,43 @@ final class ProductController extends AbstractController
 
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/add/product/{id}/', name: 'app_product_stock_add', methods: ['GET','Post'])]
+    public function stockAdd($id, ProductRepository $productRepositery, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $stockAdd = new AddProductHistory();
+        $form =$this->createForm(AddProductHistoryType::class, $stockAdd);
+        $form->handleRequest($request);
+        $product = $productRepositery->find($id); //pour les méthodes find tjs utiliser la méthode ou classe product repositery
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            if($stockAdd->getQuantity()>0){
+                $newQuantity = $product->getStock() + $stockAdd->getQuantity();
+                $product->setStock($newQuantity);
+                $stockAdd->setCreatedAt(new DateTimeImmutable());
+                $stockAdd->setProduct($product);
+
+                $entityManager->persist($stockAdd);
+                $entityManager->flush();
+
+                $this->addFlash('succes', "Le stock du produit à été modifié");
+                return $this->redirectToRoute(('app_product_index'));  
+            }
+        }
+        return $this->render('product/addStock.html.twig',
+        ['form'=> $form->createView(),
+        'product' => $product,
+        ]
+        );
+    }
+    #[Route('/{id}/stock/history', name:'app_stock_history', methods:['GET', 'POST'])]
+    public function showHistoryProductStock($id, ProductRepository $productRepositery, AddProductHistoryRepository $addProductHistory): Response
+    {
+        $product = $productRepositery->find($id);
+        $productAddHistory = $addProductHistory->findBy(['product'=>$product],['id'=>'DESC']);
+    
+        return $this->render('product/showHistory.html.twig',
+        ['productsAdded'=> $productAddHistory]);
+        }    
+    
 }

@@ -9,8 +9,22 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Coucou tout le monde, c'est ma homepage</h1>
+    <h1>Ma page d'accueil</h1>
 </div>
+
+{% for product in products%}
+
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name}}</h5>
+    <p class="card-text"> {{ product.description}}</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+
+{% endfor %}
+
 <ul>
 
 {% endblock %}
