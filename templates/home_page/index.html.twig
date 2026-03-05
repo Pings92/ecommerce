@@ -11,20 +11,18 @@
 <div class="example-wrapper">
     <h1>Ma page d'accueil</h1>
 </div>
-
-{% for product in products%}
-
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{ product.name}}</h5>
-    <p class="card-text"> {{ product.description}}</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
+<div class="row">
+    {% for product in products %}
+        <div class="card" style="width: 18rem;">
+        <img src="{{ asset('uploads/images/'~product.images)}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ product.name}}</h5>
+            <p class="card-text"> {{ product.description|slice(0,60)}} ...</p>
+            <a href="#" class="btn btn-primary">Voir</a>
+        </div>
+        </div>
+    {% endfor %}
 </div>
-
-{% endfor %}
-
 <ul>
 
 {% endblock %}
