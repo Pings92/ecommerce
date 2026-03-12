@@ -51,6 +51,7 @@ final class ProductController extends AbstractController
                 }catch (FileException $exception){}
                 $product->setImages($newFileImageName);
             }
+            
             $entityManager->persist($product);
             $entityManager->flush();
 
@@ -102,6 +103,7 @@ final class ProductController extends AbstractController
                 }catch (FileException $exception){}
                 $product->setImages($newFileImageName);
             }
+
             $entityManager->flush();
             return($this->redirectToRoute('app_product_index'));
         }
@@ -143,7 +145,7 @@ final class ProductController extends AbstractController
                 $entityManager->persist($stockAdd);
                 $entityManager->flush();
 
-                $this->addFlash('succes', "Le stock du produit à été modifié");
+                $this->addFlash('success', "Le stock du produit à été modifié");
                 return $this->redirectToRoute(('app_product_index'));  
             }
         }

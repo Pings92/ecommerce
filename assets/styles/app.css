@@ -1,5 +1,5 @@
 body {
-    background-color: skyblue;
+    background-color: #F5EBE0;
 }
 .loginform{
     width: 400px;
@@ -17,4 +17,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;  
+}
+
+.theHate{
+    text-decoration: none;
+}
+
+.imgHomeShow{
+    width: 400px; 
+    height: 400px;
 }

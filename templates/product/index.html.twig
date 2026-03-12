@@ -29,7 +29,7 @@
                 <td>{{ product.description |slice(0,60) }} ...</td>
                 <td>{{ product.price }}</td>
                 <td>
-                    {% if product.stock == 0%}
+                    {% if product.stock == 0 %}
                         <span class="badge bg-danger" role="badge">Stock epuisé</span>
                         {# <td class="badge bg-danger" role="badge">Stock epuisé</td> #}
                     {% else %}
