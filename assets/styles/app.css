@@ -27,3 +27,7 @@ body {
     width: 400px; 
     height: 400px;
 }
+.imgLastAdded{
+    max-width: 250px;
+    max-height: 250px; 
+}
