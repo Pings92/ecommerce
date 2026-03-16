@@ -17,11 +17,11 @@ use Knp\Component\Pager\PaginatorInterface;
 final class HomePageController extends AbstractController
 {
     #[Route('/', name: 'app_home_page')]
-    public function index(PaginatorInteraface $paginatorInterface, Request $Request,ProductRepository $productRepository, CategoryRepository $categoryRepository, SubCategoryRepository $subCategoryRepository): Response
+    public function index(PaginatorInterface $paginator, Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, SubCategoryRepository $subCategoryRepository): Response
     {
         // $products = $productRepository->findAll();
         $data= $productRepository->findby([], ['id'=>"DESC"]);
-        $products = $paginatorInterface->paginate(
+        $products = $paginator->paginate(
             $data,
             $request->query->getInt('page',1),
             8
