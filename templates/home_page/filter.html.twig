@@ -1,0 +1,46 @@
+{# <h1>COucou</h1>
+<h5>{{subCategory.name}}</h5>
+
+{% for product in products %}
+    <div class="card" style="width: 18rem;">  
+        <div class="card-body">
+            <img src="{{ asset('uploads/images/'~product.images)}}" class="img-fluid rounded-start imgHomeShow imgLastAdded" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text">{{product.description}}</p>
+                <a href="#" class="btn btn-primary">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>    
+    </div>
+{% endfor %} #}
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomePageController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>{{subCategory.name}}</h1>
+</div>
+<div class="row">
+    {% for product in products %}
+        <div class="card" style="width: 18rem;">
+        <img src="{{ asset('uploads/images/'~product.images)}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <a href="{{ path('app_home_product_show',{'id' : product.id}) }} " class="theHate"><h5 class="card-title">{{ product.name}}</h5></a>
+            <p class="card-text"> {{ product.description|slice(0,60)}} ...</p>
+            <a href="{{ path('app_home_product_show',{'id' : product.id}) }} " class="btn btn-primary">Voir</a>
+        </div>
+        </div>
+    {% endfor %}
+</div>
+<ul>
+
+{% endblock %}

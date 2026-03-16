@@ -31,6 +31,7 @@ class ProductUpdateType extends AbstractType
                         'image/png',
                         'image/jpg',
                         'image/webp',
+                        'image/avif',
                     ],
                     maxSizeMessage: 'Votre image ne doit pas dépasser 024ko',
                     mimeTypesMessage : 'Veuillez choisir un fichier de type image valide(jpeg, png, jpg, webp)!!',
