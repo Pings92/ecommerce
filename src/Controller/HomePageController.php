@@ -9,10 +9,11 @@ use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use App\Repository\SubCategoryRepository;
 use Doctrine\ORM\Mapping\Id;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Knp\Component\Pager\PaginatorInterface;
 
 final class HomePageController extends AbstractController
 {
@@ -24,7 +25,7 @@ final class HomePageController extends AbstractController
         $products = $paginator->paginate(
             $data,
             $request->query->getInt('page',1),
-            8
+            4
         );
         return $this->render('home_page/index.html.twig', [
             // 'controller_name' => 'HomePageController',
