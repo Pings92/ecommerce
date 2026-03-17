@@ -11,19 +11,30 @@
 <div class="example-wrapper">
     <h1>Ma page d'accueil</h1>
 </div>
-<div class="row">
-    {% for product in products %}
-        <div class="card" style="width: 18rem;">
-        <img src="{{ asset('uploads/images/'~product.images)}}" class="card-img-top" alt="...">
-        <div class="card-body">
-            <a href="{{ path('app_home_product_show',{'id' : product.id}) }} " class="theHate"><h5 class="card-title">{{ product.name}}</h5></a>
-            <p class="card-text"> {{ product.description|slice(0,60)}} ...</p>
-            <a href= "{{path ('app_cart_new', {'id' : product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
-        </div>
-        </div>
-    {% endfor %}
-</div>
-{{ knp_pagination_render(products, 'layouts/_pagination_template.html.twig') }}
-<ul>
+<div class="container my-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for product in products %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ asset('uploads/images/' ~ product.images) }}" class="card-img-top" alt="{{ product.name }}">
+                    <div class="card-body d-flex flex-column">
+                        <a href="{{ path('app_home_product_show', {'id' : product.id}) }}" class="text-decoration-none">
+                            <h5 class="card-title text-dark">{{ product.name }}</h5>
+                        </a>
+                        <p class="card-text text-muted"> {{ product.description|slice(0, 60) }}...</p>
+                        <div class="mt-auto">
+                            <a href="{{ path('app_cart_new', {'id' : product.id}) }}" class="btn btn-primary w-100">
+                                Ajouter au panier
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
+    <div class="d-flex justify-content-center mt-5">
+        {{ knp_pagination_render(products, 'layouts/_pagination_template.html.twig') }}
+    </div>
+</div>
 {% endblock %}

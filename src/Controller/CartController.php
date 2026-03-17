@@ -63,4 +63,11 @@ final class CartController extends AbstractController
         $session->set('cart', $cart);
         return $this->redirectToRoute('app_cart');
     }
+
+    #[Route("cart/remove/", name: "app_cart_remove", methods: ['GET'])]
+    public function removeCart(SessionInterface $session): Response
+    {
+        $session->set('cart', []);
+        return $this->redirectToRoute('app_cart');
+    }
 }

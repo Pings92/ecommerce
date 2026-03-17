@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomePageController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Ma page d'accueil</h1>
+</div>
+<div class="row">
+    {% for product in products %}
+        <div class="card" style="width: 18rem;">
+        <img src="{{ asset('uploads/images/'~product.images)}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <a href="{{ path('app_home_product_show',{'id' : product.id}) }} " class="theHate"><h5 class="card-title">{{ product.name}}</h5></a>
+            <p class="card-text"> {{ product.description|slice(0,60)}} ...</p>
+            <a href= "{{path ('app_cart_new', {'id' : product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+        </div>
+        </div>
+    {% endfor %}
+</div>
+{{ knp_pagination_render(products, 'layouts/_pagination_template.html.twig') }}
+<ul>
+
+{% endblock %}
