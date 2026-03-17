@@ -21,57 +21,48 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
 <div class="container">
 
-     {% include 'layouts/_flash_message.html.twig' %} {#} on inclut le template _flash_message.html.twig qui se trouve dans le dossier category/layouts, ce template contient le code pour afficher les messages flash (succès, erreur, etc.) #}
+     {# {% include 'layouts/_flash_message.html.twig' %} } on inclut le template _flash_message.html.twig qui se trouve dans le dossier category/layouts, ce template contient le code pour afficher les messages flash (succès, erreur, etc.) #}
 
-    <h1>Product index</h1>
+    <h1>Panier</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
+                <th>Produit</th>
                 <th>Prix</th>
-                <th>Stock</th>
+                <th>Quantité</th>
+                <th>Total</th>
                 <th>Actions</th>
-
             </tr>
         </thead>
         <tbody>
-        {% for product in products %}
+        {% for item in items %}
             <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description |slice(0,60) }} ...</td>
-                <td>{{ product.price }}</td>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.product.price }}€</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{item.product.price * item.quantity }}</td>
                 <td>
-                    {% if product.stock == 0 %}
-                        <span class="badge bg-danger" role="badge">Stock epuisé</span>
-                        {# <td class="badge bg-danger" role="badge">Stock epuisé</td> #}
-                    {% else %}
-                        {{ product.stock }}
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Afficher</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-warning">Modifier</a>
-                    <a href="{{ path('app_product_stock_add', {'id':product.id}) }}" class="btn btn-outline-secondary">Ajouter du stock</a>
-                    <a href="{{ path('app_product_delete',{'id': product.id})}}" class="btn btn-danger">Supprimer</a>
+                    <a href="{{ path('app_cart_product_remove', {'id': item.product.id}) }}" class="btn btn-danger">Vider le panier</a>
+                    {#<a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-warning">Modifier</a>
+                    <a href="{{ path('app_product_stock_add', {'id':product.id}) }}" class="btn btn-outline-secondary">Ajouter du stock</a> #}
+                    {# <a href="{{ path('app_product_delete',{'id': product.id})}}" class="btn btn-danger">Supprimer</a> #}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">Aucune entrée</td>
+                <td colspan="5">Panier vide</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_product_new') }}" class="btn btn-success">Créer un nouveau produit</a>
+    <h2>Total: {{total}}€</h2>
+    <a href="{{ path('app_product_new') }}" class="btn btn-info">Payer</a>
+    <a href="{{ path('app_product_new') }}" class="text text-danger text-uppercase" style=text-decoration:none>Supprimer le panier</a>
     </div>
 {% endblock %}

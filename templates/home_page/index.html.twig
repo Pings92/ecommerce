@@ -18,7 +18,7 @@
         <div class="card-body">
             <a href="{{ path('app_home_product_show',{'id' : product.id}) }} " class="theHate"><h5 class="card-title">{{ product.name}}</h5></a>
             <p class="card-text"> {{ product.description|slice(0,60)}} ...</p>
-            <a href="{{ path('app_home_product_show',{'id' : product.id}) }} " class="btn btn-primary">Voir</a>
+            <a href= "{{path ('app_cart_new', {'id' : product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
         </div>
         </div>
     {% endfor %}
