@@ -12,13 +12,43 @@
     <div class = "row">
         <div class = "col-8">
             <h1 class = 'mt-4 mb-4'> Commande </h1>
+            
             {{ form_start(form) }}
             {{ form_widget(form) }}
                 <input type="submit" class="btn btn-success" value="Continuer">
             {{ form_end(form) }}
         </div>
+        <div class="col-4 mt-5">
+            <span class='mb-2'>Montant à payer</span>
+            <h3>{{total}} €</h3>
+            <span>Frais de livraison</span>
+        </div>
     <div class="col-4">
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-4.0.0.min.js" integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){ //lorsque la page a fini de charger
+        const citySelector =$('#order_city'); //#order_city c'est un id
+        const cityValue = citySelector.val(); //récupere la valeur actuelle de cityselector
 
+        const url = `http://127.0.0.1:8000/city/${cityValue}/shipping/cost`; // on construit lurl de la requete ajax en fonction de la valeur de la ville selectionné
+        //requete ajax
+        function ajaxRequest(url) {}
+        $.ajax({ 
+            url:url, // on rappelle la constante qui est l'url déclaré plus tot
+            type:'GET', // de type get, qui signifie qu'on va récup les données du serveur
+            success:function(response){
+                const newResponse = JSON.parse(response)
+                if (parseInt(newResponse.status) === 200){
+                    console/log(newResponse.status)
+                }
+            }, //c'est la function qui sera appelé si ça passe (dans notre cas la fonction elle même)
+            error:function(xhr,status,error){
+
+            }
+        })
+    }
+    )
+</script>
 {% endblock %}
