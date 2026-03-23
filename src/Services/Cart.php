@@ -4,10 +4,14 @@ namespace App\Services;
 use App\Repository\ProductRepository;
 
 class Cart{
+
     public function __construct(private readonly ProductRepository $productRepository){}
-        public function getCart($session):array   {
+
+        public function getCart($session):array{
+
         $cart = $session->get('cart', []);
         $cartWithData = [];
+
         foreach ($cart as $id => $quantity) {
                 $cartWithData[] = [
                     'product' => $this->productRepository -> find($id),
@@ -22,7 +26,7 @@ class Cart{
             
             
         return [
-            'items' => $cartWithData,
+            'cart' => $cartWithData,
             'total' => $total
         ];
     }
