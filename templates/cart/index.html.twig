@@ -59,6 +59,12 @@
                 <td colspan="5">Panier vide</td>
             </tr>
         {% endfor %}
+
+        {# <div class="row">
+            <a href="{{ path('app_order') }}" class="btn btn-priamry col-2 m-lg-1" data-turbo="false">Payer</a>
+            <a href="{{ path('app_cart_remove') }}" class="btn btn-outline-danger col-2 m-lg-1 style=text-decoration:none">Supprimer le panier</a>
+
+        </div> #}
         </tbody>
     </table>
     <h2>Total: {{total}}€</h2>

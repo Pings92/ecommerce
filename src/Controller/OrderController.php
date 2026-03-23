@@ -6,6 +6,8 @@ use App\Entity\City;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Repository\ProductRepository;
+use DateTimeImmutable;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class OrderController extends AbstractController
 {
     #[Route('/order', name: 'app_order')]
-    public function index(Request $request, SessionInterface $session, ProductRepository $productRepository): Response
+    public function index(Request $request, SessionInterface $session, ProductRepository $productRepository, EntityManagerInterface $entityManager): Response
     {
         $cart = $session->get('cart', []);
         $cartWithData = [];
@@ -32,6 +34,12 @@ final class OrderController extends AbstractController
         $order = new Order;
         $form = $this->createform(OrderType::class, $order); 
         $form ->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $order->setCreatedAt(new DateTimeImmutable());
+            $entityManager->persist($order);
+            $entityManager->flush();
+        }
             
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),
@@ -39,6 +47,7 @@ final class OrderController extends AbstractController
             'total' => $total,
         ]);
     }
+    
     #[Route('/city/{id}/shipping/cost', name: 'app_city_shipping_cost')]
 public function cityShippingCost(City $city): Response
 {
