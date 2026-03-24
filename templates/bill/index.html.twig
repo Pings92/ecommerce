@@ -1,0 +1,77 @@
+{% block title %}Hello BillController!{% endblock %}
+
+{% block body %}
+    <h2 style="text-decoration: underline">FACTURE N° {{order.id}}</h2>
+    <br>
+    <h5> Info Client</h5>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Creation date</th>
+                <th>Adresse</th>
+                <th>numéro de téléphone</th>
+                <th>Paiement à la livraison</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{order.firstName}} {{order.lastName}}</td>
+                <td>date de la commande</td>
+                <td>{{order.adress}}, <br> {{order.city.name}}</td>
+                <td>{{order.phone}}</td>
+                {% if order.payOnDelivery == true %}
+                    <td>Oui</td>
+                {% else %}
+                    <td>Non</td>                            
+                {% endif %}
+            </tr> 
+        </tbody>
+    </table>
+
+    <table class="table table-bordered">
+    <h5>Produits de la commande</h5>  
+    <thead>
+        <tr>
+            <th></th>
+            <th>Article</th>
+            <th>Quantité</th>
+            <th>Prix unitaire</th>
+            <th>Prix</th>
+        </tr>
+    </thead>
+    {% for product in order.orderProducts %}
+        <tbody>
+            <tr>
+                <td><img src="{{ asset('uploads/images/' ~ product.product.images) }}" class="card-img-top" alt="" style="width:100px; height:0 auto"></td>
+                <td>{{product.product.name}}</td>
+                <td>{{product.qte}}</td>
+                <td>{{product.product.price}}</td>
+                <td>{{product.qte * product.product.price}}</td>
+            </tr>
+        </tbody>
+    {% endfor %} 
+    <th>Total à payer</th>
+    <td>{{order.totalPrice}} €<span style="font-size:10px"> hors frais de livraison</span></td>
+    </table>
+    <span>Frais de livraison : {{order.city.shippingCost}} € ({{order.city.name}})</span>
+    <h5>Total à payer : {{order.totalPrice + order.city.shippingCost}} €</h5>
+
+{% endblock %}
+    <style>
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }        
+        th, td{
+            padding: 8%;
+            border: 1px solid #ddd;
+            text-align:left;
+        }
+        thead{
+            background: #f2f2f2;
+        }        
+        tbody tr:nth-child(odd){
+            background: #f9f9f9 ;      
+        }        
+    </style>

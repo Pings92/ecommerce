@@ -76,7 +76,7 @@
 
             {% endif %}
             <a onclick="return confirm ('Voulez-vous vraiment supprimer cette commande?')" href="{{ path('app_order_is-completed-delete', {'id': order.id})}}"  class='btn btn-danger col-3 m-lg-1'>Supprimer la commande</a>
-            <a href=""  class='btn btn-outline-success col-2 m-lg-1'>Imprimé la commande</a>
+            <a href="{{ path('app_bill', {'id': order.id})}}"   class='btn btn-outline-success col-2 m-lg-1'>Imprimé la commande</a>
         {% endfor %} 
         
     </div>
