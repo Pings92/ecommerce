@@ -104,24 +104,27 @@ final class OrderController extends AbstractController
     }
 
     #[Route('/editor/order/{id}/is-completed/update', name:'app_order_is-completed-update', methods: ['GET', 'POST'])]
-    public function switchCompletedState(OrderRepository $orderRepository,
+    public function switchCompletedState($id, OrderRepository $orderRepository,
                                          EntityManagerInterface $entityManager,
                                          )
     {
-        $statuts= $orderRepository->find(isCompleted);
-        if (status is true)
+        $statut = $orderRepository->find($id);
+        $statut-> setIsCompleted(true);
+        $entityManager->flush($statut);
+        $this->addFlash('success', "Status modifié avec succès");
+        return $this->redirectToRoute('app_order_shows', [
+        ]);
+        }
 
-        $EntityManager->flush();
-        return $this->redirectToRoute('app_order_shows');
-
-//     #[Route ('/taskdone', name:'app_task_done', methods:['GET'])]
-//     public function taskdone(TaskRepository $taskRepository)
-//     {
-//         return $this->render('task/index.html.twig', [
-//             'tasks'=>$taskRepository->findBy(['isDone'=>true]),
-//    ]);
-//    }
-        
-    }
-
+    #[Route('/editor/order/{id}/is-completed/delete', name:'app_order_is-completed-delete', methods: ['GET', 'POST'])]
+    public function deleteOrder(Order $order,
+                                         EntityManagerInterface $entityManager,
+                                         )
+    {
+        $entityManager->remove($order);
+        $entityManager->flush();
+        $this->addFlash('danger', "Commande suprimmer avec succès");
+        return $this->redirectToRoute('app_order_shows', [
+        ]);
+        }
 }

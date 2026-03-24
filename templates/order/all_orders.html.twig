@@ -26,7 +26,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>incendie criminelpla
+                        <tr>
                             <td>{{order.firstName}} {{order.lastName}}</td>
                             <td>date de la commande</td>
                             <td>{{order.adress}}, <br> {{order.city.name}}</td>
@@ -68,13 +68,17 @@
                     <th>Total à payer</th>
                     <td>{{order.totalPrice}} €<span style="font-size:10px"> hors frais de livraison</span></td>
             </table>
-            "{{ path('app_order_shows') }}"
             <span>Frais de livraison : {{order.city.shippingCost}} € ({{order.city.name}})</span>
             <h5>Total à payer : {{order.totalPrice + order.city.shippingCost}} €</h5>
-            <a href="{{ path('app_order_is-completed-update')}}"  class='btn btn-outline-primary col-2 m-lg-1'>Marquer comme livré </a>
-            <a href=""  class='btn btn-danger col-2 m-lg-1'>Supprimer la commande</a>
+            {% if order.isCompleted !== true %}
+                <a href="{{ path('app_order_is-completed-update', {'id': order.id})}}"  class='btn btn-outline-primary col-2 m-lg-1'>Marquer comme livré </a>
+            {% else %}
+
+            {% endif %}
+            <a onclick="return confirm ('Voulez-vous vraiment supprimer cette commande?')" href="{{ path('app_order_is-completed-delete', {'id': order.id})}}"  class='btn btn-danger col-3 m-lg-1'>Supprimer la commande</a>
             <a href=""  class='btn btn-outline-success col-2 m-lg-1'>Imprimé la commande</a>
         {% endfor %} 
+        
     </div>
     <div class="d-flex justify-content-center mt-5">
         {{ knp_pagination_render(orders, 'layouts/_pagination_template.html.twig') }}
