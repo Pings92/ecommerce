@@ -18,7 +18,12 @@ use Symfony\Component\Routing\Attribute\Route;
 final class HomePageController extends AbstractController
 {
     #[Route('/', name: 'app_home_page')]
-    public function index(PaginatorInterface $paginator, Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository, SubCategoryRepository $subCategoryRepository): Response
+    public function index(PaginatorInterface $paginator,
+                          Request $request,
+                          ProductRepository $productRepository,
+                          CategoryRepository $categoryRepository,
+                          SubCategoryRepository $subCategoryRepository
+                          ): Response
     {
         // $products = $productRepository->findAll();
         $data= $productRepository->findby([], ['id'=>"DESC"]);

@@ -3,55 +3,80 @@
 {% block title %}Hello OrderController!{% endblock %}
 
 {% block body %}
-<div class="container">
-    <p class="text-center mt-5">
-        Votre commande a bien été pris en compte.
-    <th>
+    <div class="container">
+        <h1 class="text-center mt-5"> Historique des commande </h1>
+            {% for order in orders %}
+                <h2 style="text-decoration: underline">COMMANDE N° {{order.id}}</h2>
+                {% if order.isCompleted == true %}
+                    <span class='text-success'>Commande livré</span>
+                {% else %}
+                    <span class='text-danger'>Commande non livré</span>                    
+                {% endif %}
+                <br>
+                <h5> Info Client</h5>
 
-    {# {% for user in users %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Creation date</th>
+                            <th>Adresse</th>
+                            <th>numéro de téléphone</th>
+                            <th>Paiement à la livraison</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>incendie criminelpla
+                            <td>{{order.firstName}} {{order.lastName}}</td>
+                            <td>date de la commande</td>
+                            <td>{{order.adress}}, <br> {{order.city.name}}</td>
+                            <td>{{order.phone}}</td>
+                            {% if order.payOnDelivery == true %}
+                                <td>Oui</td>
+                            {% else %}
+                                <td>Non</td>                            
+                            {% endif %}
+                        </tr> 
+                        {# {% endfor %} #}
+                    </tbody>
+            </table>
 
-    {% endfor %} #}
-    <table>
-        <thead>
-            <tr>
-                <th>Numéro de la commande</th>
-                <th>first name</th>
-                <th>Last Name</th>
-                <th>created at</th>
-                <th>Numéro de tel</th>
-                <th>Adresse</th>
-                <th>city</th>
-                <th>total price</th>
-            </tr>
-        </thead>
-    <tbody>
-
-        {% for order in orders %}
-            <tr>
-                <td>Numéro de la commande</td>
-                <td>{{order.firstName}}</td>
-                <td>{{order.lastName}}</td>
-                <td>order.createdAt</td>
-                <td>{{order.phone}}</td>
-                <td>{{order.adress}}</td>
-                <td>order.city</td>
-                <td>{{order.totalPrice}}</td>
-            </tr>    
-        {% endfor %}
-
-    </tbody>
-    </table>
-    {% for order in orders %}
-    {# <p>{{product.order.name}}</p> PAS BON #}
-        {# <p>{{product.product.name}}</p> #}
-        {# <p>{{order.product.name}}</p>
-        <p>{{order.product.price}}</p>
-        <p>{{order.product.images}}</p>
-        <p>{{order.product.name}}</p>
-        <p>{{order.product.name}}</p> #}
-    {% endfor %} 
-
-
-</div>
-
+          
+            <table class="table table-bordered">
+                <h5>Produits de la commande</h5>  
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Article</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+                        <th>Prix</th>
+                    </tr>
+                </thead>
+                {% for product in order.orderProducts %}
+                    <tbody>
+                    <tr>
+                        <td><img src="{{ asset('uploads/images/' ~ product.product.images) }}" class="card-img-top" alt="" style="width:100px; height:0 auto"></td>
+                        <td>{{product.product.name}}</td>
+                        <td>{{product.qte}}</td>
+                        <td>{{product.product.price}}</td>
+                        <td>{{product.qte * product.product.price}}</td>
+                    </tr>
+                    </tbody>
+                {% endfor %} 
+                
+                    <th>Total à payer</th>
+                    <td>{{order.totalPrice}} €<span style="font-size:10px"> hors frais de livraison</span></td>
+            </table>
+            "{{ path('app_order_shows') }}"
+            <span>Frais de livraison : {{order.city.shippingCost}} € ({{order.city.name}})</span>
+            <h5>Total à payer : {{order.totalPrice + order.city.shippingCost}} €</h5>
+            <a href="{{ path('app_order_is-completed-update')}}"  class='btn btn-outline-primary col-2 m-lg-1'>Marquer comme livré </a>
+            <a href=""  class='btn btn-danger col-2 m-lg-1'>Supprimer la commande</a>
+            <a href=""  class='btn btn-outline-success col-2 m-lg-1'>Imprimé la commande</a>
+        {% endfor %} 
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+        {{ knp_pagination_render(orders, 'layouts/_pagination_template.html.twig') }}
+    </div>
 {% endblock %}

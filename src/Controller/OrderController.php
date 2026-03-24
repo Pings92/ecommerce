@@ -12,6 +12,7 @@ use App\Repository\UserRepository;
 use App\Services\Cart;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,20 +26,10 @@ final class OrderController extends AbstractController
                           SessionInterface $session, 
                           ProductRepository $productRepository,
                           EntityManagerInterface $entityManager,
-                          Cart $cart): Response
+                          Cart $cart,
+                          OrderRepository $orderRepository
+                          ): Response
     {
-        // $cart = $session->get('cart', []);
-        // $cartWithData = [];
-        // foreach ($cart as $id => $quantity) {
-        //         $cartWithData[] = [
-        //             'product' => $productRepository -> find($id),
-        //             'quantity' => $quantity
-        //         ];
-        // }
-        // $total = array_sum(array_map(function ($item) {
-        //     return $item['product']->getPrice()* $item['quantity'];
-        //     }, $cartWithData));
-
         $data = $cart->getCart($session);
 
         $order = new Order;
@@ -66,7 +57,7 @@ final class OrderController extends AbstractController
             return $this->redirectToRoute('app_message_order'); //après validation du panier nous ramène à la page panier
             }      
         }
-            
+
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),
             // 'items' => $data['cart'],
@@ -94,12 +85,43 @@ final class OrderController extends AbstractController
     }
 
     #[Route('/editor/order', name:'app_order_shows', methods: ['GET'])]
-    public function getAllOrder(UserRepository $userRepository, OrderRepository $orderRepository): Response
+    public function getAllOrder(UserRepository $userRepository,
+                                PaginatorInterface $paginator,
+                                OrderRepository $orderRepository,
+                                Request $request,
+                                ): Response
     {
-        $order = $orderRepository->findAll();
+        // $order = $orderRepository->findAll();
+        $data= $orderRepository->findby([], ['id'=>"DESC"]);
+        $order = $paginator->paginate(
+        $data,
+        $request->query->getInt('page',1),
+        2
+        );
         return $this->render('order/all_orders.html.twig',[
         'orders'=>$order
         ]);
+    }
+
+    #[Route('/editor/order/{id}/is-completed/update', name:'app_order_is-completed-update', methods: ['GET', 'POST'])]
+    public function switchCompletedState(OrderRepository $orderRepository,
+                                         EntityManagerInterface $entityManager,
+                                         )
+    {
+        $statuts= $orderRepository->find(isCompleted);
+        if (status is true)
+
+        $EntityManager->flush();
+        return $this->redirectToRoute('app_order_shows');
+
+//     #[Route ('/taskdone', name:'app_task_done', methods:['GET'])]
+//     public function taskdone(TaskRepository $taskRepository)
+//     {
+//         return $this->render('task/index.html.twig', [
+//             'tasks'=>$taskRepository->findBy(['isDone'=>true]),
+//    ]);
+//    }
+        
     }
 
 }
