@@ -1,8 +1,10 @@
-{# {% block title %}Hello BillController!{% endblock %} #}
-
 {% block body %}
     <div class='container'>
-        <h2 style="text-decoration: underline">FACTURE N° {{order.id}}</h2>
+        <h1>Confirmationd de commande {{order.id}}</h1>
+        <span> Date: {{order.createdAt|date }}</span>
+        <p>Merci pour votre commande elle sera traité dans les plus bref délais</p>
+        <span class='text-primary'>Détails de la commande</span>
+        {# <h2 style="text-decoration: underline">FACTURE N° </h2> #}
         <br>
         <h5> Info Client</h5>
         <table class="table table-bordered">
