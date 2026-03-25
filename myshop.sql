@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 18 mars 2026 à 07:21
+-- Généré le : mer. 25 mars 2026 à 07:32
 -- Version du serveur : 8.4.7
 -- Version de PHP : 8.3.28
 
@@ -107,14 +107,18 @@ CREATE TABLE IF NOT EXISTS `city` (
   `name` varchar(255) NOT NULL,
   `shipping_cost` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `city`
 --
 
 INSERT INTO `city` (`id`, `name`, `shipping_cost`) VALUES
-(1, 'Merignac', 0.5);
+(1, 'Merignac', 0.5),
+(2, 'Sainte-Rose', 9.71),
+(3, 'Fort-de-France', 9.72),
+(4, 'Tourcoing', 10.22),
+(5, 'Tokyo', 27.29);
 
 -- --------------------------------------------------------
 
@@ -144,7 +148,10 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20260303125703', '2026-03-03 12:58:42', 85),
 ('DoctrineMigrations\\Version20260303131557', '2026-03-03 13:16:07', 157),
 ('DoctrineMigrations\\Version20260317121908', '2026-03-17 12:19:46', 147),
-('DoctrineMigrations\\Version20260317131116', '2026-03-17 13:11:26', 128);
+('DoctrineMigrations\\Version20260317131116', '2026-03-17 13:11:26', 128),
+('DoctrineMigrations\\Version20260323073908', '2026-03-23 07:40:55', 184),
+('DoctrineMigrations\\Version20260323092241', '2026-03-23 09:23:08', 252),
+('DoctrineMigrations\\Version20260324104025', '2026-03-24 10:40:49', 279);
 
 -- --------------------------------------------------------
 
@@ -180,9 +187,49 @@ CREATE TABLE IF NOT EXISTS `order` (
   `adress` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `city_id` int DEFAULT NULL,
+  `pay_on_delivery` tinyint NOT NULL,
+  `total_price` double NOT NULL,
+  `is_completed` tinyint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_F52993988BAC62AF` (`city_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `order`
+--
+
+INSERT INTO `order` (`id`, `first_name`, `last_name`, `phone`, `adress`, `created_at`, `city_id`, `pay_on_delivery`, `total_price`, `is_completed`) VALUES
+(11, 'ROKUSASU', 'Sora', '0613010111', 'Place de la Fontaine', '2026-03-24 14:23:26', 1, 1, 41, 1),
+(12, 'ROKUSASU', 'Sora', '0613010111', 'Place de la Fontaine', '2026-03-24 14:24:01', 3, 1, 7, 1),
+(10, 'ROKUSASU', 'Sora', '0613010111', 'Place de la Fontaine', '2026-03-24 14:21:51', 1, 1, 14, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `order_products`
+--
+
+DROP TABLE IF EXISTS `order_products`;
+CREATE TABLE IF NOT EXISTS `order_products` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `qte` int NOT NULL,
+  `_order_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_5242B8EBA35F2858` (`_order_id`),
+  KEY `IDX_5242B8EB4584665A` (`product_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `order_products`
+--
+
+INSERT INTO `order_products` (`id`, `qte`, `_order_id`, `product_id`) VALUES
+(9, 1, 11, 34),
+(8, 2, 11, 35),
+(7, 2, 10, 36),
+(11, 1, 12, 36),
+(10, 1, 11, 33);
 
 -- --------------------------------------------------------
 
