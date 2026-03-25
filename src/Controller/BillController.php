@@ -25,17 +25,17 @@ final class BillController extends AbstractController
     {
         
         $order = $orderRepository->find($id);
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont','Arial');
-        $domPdf = new Dompdf($pdfOptions);
+        $pdfOptions = new Options(); //nouvelle instanciation de options
+        $pdfOptions->set('defaultFont','Arial');// defini la police utilisé
+        $domPdf = new Dompdf($pdfOptions);//on ajoute les options défini au dessus
         $html = $this->renderView('bill/index.html.twig', [
         'order'=>$order,
-        ]);
-        $domPdf->loadHtml($html);
+        ]); // on insere ce qu'on veut imprimer
+        $domPdf->loadHtml($html); //on charge 
         $domPdf->render();
         $domPdf->stream('bill-'.$order->getId().'.pdf',[
             'Attachement'=> false
-        ]);
+        ]); // on ajoute l'ext pdf, attfalse permet de choisir de voir ou imp la facture
         return new Response('',200,[
             'Content-Type' =>'application/pdf'
         ]);
