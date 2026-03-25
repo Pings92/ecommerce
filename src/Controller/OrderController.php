@@ -20,6 +20,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Mime\Email;
+use App\Services\StripePayment;
+
 
 final class OrderController extends AbstractController
 {
@@ -71,7 +73,9 @@ final class OrderController extends AbstractController
             ->html($html);
             $this->mailer->send($email);
             return $this->redirectToRoute('app_message_order'); //après validation du panier nous ramène à la page panier
-            }      
+            }
+            $paymentStripe = new StripePayment();
+            $paymentStripe->startPayment($data);      
         }
 
         return $this->render('order/index.html.twig', [
