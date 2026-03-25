@@ -10,16 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class BillController extends AbstractController
-{
-    // #[Route('/bill', name: 'app_bill')]
-    // public function index(): Response
-    // {
-    //     return $this->render('bill/index.html.twig', [
-    //         'controller_name' => 'BillController',
-    //     ]);
-    // }
-
-    
+{   
     #[Route('/editor/order/{id}/bill', name: 'app_bill')]
     public function index(OrderRepository $orderRepository, $id): Response
     {
@@ -33,11 +24,14 @@ final class BillController extends AbstractController
         ]); // on insere ce qu'on veut imprimer
         $domPdf->loadHtml($html); //on charge 
         $domPdf->render();
-        $domPdf->stream('bill-'.$order->getId().'.pdf',[
-            'Attachement'=> false
-        ]); // on ajoute l'ext pdf, attfalse permet de choisir de voir ou imp la facture
-        return new Response('',200,[
-            'Content-Type' =>'application/pdf'
+        $output = $domPdf->output();
+        // $domPdf->stream('bill-'.$order->getId().'.pdf',[
+        //     'Attachement'=> false
+        // ]);
+         // on ajoute l'ext pdf, attfalse permet de choisir de voir ou imp la facture
+        return new Response($output,200,[
+            'Content-Type' =>'application/pdf',
+            'Content-Disposition' => 'inline; filename="bill-' . $order->getId() . '.pdf"',
         ]);
     }
 }
