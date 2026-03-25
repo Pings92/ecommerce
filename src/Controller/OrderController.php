@@ -74,8 +74,11 @@ final class OrderController extends AbstractController
             $this->mailer->send($email);
             return $this->redirectToRoute('app_message_order'); //après validation du panier nous ramène à la page panier
             }
-            $paymentStripe = new StripePayment();
-            $paymentStripe->startPayment($data);      
+            $paymentStripe = new StripePayment(); //on importe notre service avec sa classe
+            $shippingCost = $order->getCity()->getShippingCost();
+            $paymentStripe->startPayment($data, $shippingCost); // on importe le panier
+            $stripeRedirectUrl = $paymentStripe->getStripeRedirectUrl(); 
+            return $this->redirect($stripeRedirectUrl);     
         }
 
         return $this->render('order/index.html.twig', [
@@ -83,6 +86,7 @@ final class OrderController extends AbstractController
             // 'items' => $data['cart'],
             // 'items' => $cartWithData,
             'total' => $data['total'],
+            
         ]);
     }
     

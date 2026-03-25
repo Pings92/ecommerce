@@ -9,7 +9,8 @@
         <div class = "col-8">
             <h1 class = 'mt-4 mb-4'> Commande </h1>
             
-            {{ form_start(form) }}
+            {# {{ form_start(form) }} #}
+            {{ form_start(form, {'attr': {'data-turbo': 'false'}}) }}
             {{ form_widget(form) }}
                 <input type="submit" class="btn btn-success" value="Continuer">
             {{ form_end(form) }}
