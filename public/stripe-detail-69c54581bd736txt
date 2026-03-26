@@ -1,0 +1,81 @@
+Stripe\PaymentIntent JSON: {
+    "id": "pi_3TFF5o2Qc09Hr3SW0kKCLIAn",
+    "object": "payment_intent",
+    "amount": 1450,
+    "amount_capturable": 0,
+    "amount_details": {
+        "shipping": {
+            "amount": 0,
+            "from_postal_code": null,
+            "to_postal_code": null
+        },
+        "tax": {
+            "total_tax_amount": 0
+        },
+        "tip": []
+    },
+    "amount_received": 1450,
+    "application": null,
+    "application_fee_amount": null,
+    "automatic_payment_methods": null,
+    "canceled_at": null,
+    "cancellation_reason": null,
+    "capture_method": "automatic_async",
+    "client_secret": "pi_3TFF5o2Qc09Hr3SW0kKCLIAn_secret_Ka3kNttB6YfAMmpGavE7gC7iL",
+    "confirmation_method": "automatic",
+    "created": 1774536064,
+    "currency": "eur",
+    "customer": null,
+    "customer_account": null,
+    "description": null,
+    "excluded_payment_method_types": null,
+    "last_payment_error": null,
+    "latest_charge": "ch_3TFF5o2Qc09Hr3SW0KzcA07F",
+    "livemode": false,
+    "metadata": {
+        "orderid": "32"
+    },
+    "next_action": null,
+    "on_behalf_of": null,
+    "payment_details": {
+        "customer_reference": null,
+        "order_reference": "cs_test_b1uZFsyUrkkOmi2HK1gFNvq55IiUjS3Amlz1jOZzC2KKhw5xQ5RHKngBDq"
+    },
+    "payment_method": "pm_1TFF5n2Qc09Hr3SWebSxvnGD",
+    "payment_method_configuration_details": null,
+    "payment_method_options": {
+        "card": {
+            "installments": null,
+            "mandate_options": null,
+            "network": null,
+            "request_three_d_secure": "automatic"
+        }
+    },
+    "payment_method_types": [
+        "card"
+    ],
+    "processing": null,
+    "receipt_email": null,
+    "review": null,
+    "setup_future_usage": null,
+    "shipping": {
+        "address": {
+            "city": "Torav\u0101su Taun",
+            "country": "FR",
+            "line1": "Place de la Fontaine",
+            "line2": null,
+            "postal_code": "97430",
+            "state": null
+        },
+        "carrier": null,
+        "name": "Sora ROKUSASU",
+        "phone": null,
+        "tracking_number": null
+    },
+    "source": null,
+    "statement_descriptor": null,
+    "statement_descriptor_suffix": null,
+    "status": "succeeded",
+    "transfer_data": null,
+    "transfer_group": null
+}

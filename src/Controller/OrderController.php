@@ -45,10 +45,10 @@ final class OrderController extends AbstractController
         $form ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($order->isPayOnDelivery()){
                 if(!empty($data['total'])){
                     $order->setTotalPrice($data['total']);
                     $order->setCreatedAt(new DateTimeImmutable());
+                    $order->setisPaymentCompleted(0);
                     $entityManager->persist($order);
                     $entityManager->flush();
                     // dd($data['cart']);
@@ -60,26 +60,29 @@ final class OrderController extends AbstractController
                         $entityManager -> persist($orderProduct);
                         $entityManager -> flush();
                     }
-                }
-            $session->set('cart', []); //retourne un panier vide une fois la commande passé
+                    if($order->isPayOnDelivery()){
+                        $session->set('cart', []); //retourne un panier vide une fois la commande passé
 
-            $html = $this->renderView('mail/orderConfirm.html.twig',[
-                'order'=>$order
-            ]);
-            $email = (new Email())
-            ->from('bidkad@hotmail.com')
-            ->to($order->getEmail())
-            ->subject('Confirmation de réception de la commande')
-            ->html($html);
-            $this->mailer->send($email);
-            return $this->redirectToRoute('app_message_order'); //après validation du panier nous ramène à la page panier
-            }
-            $paymentStripe = new StripePayment(); //on importe notre service avec sa classe
-            $shippingCost = $order->getCity()->getShippingCost();
-            $paymentStripe->startPayment($data, $shippingCost); // on importe le panier
-            $stripeRedirectUrl = $paymentStripe->getStripeRedirectUrl(); 
-            return $this->redirect($stripeRedirectUrl);     
-        }
+                        $html = $this->renderView('mail/orderConfirm.html.twig',[
+                            'order'=>$order
+                        ]);
+                        $email = (new Email())
+                        ->from('bidkad@hotmail.com')
+                        ->to($order->getEmail())
+                        ->subject('Confirmation de réception de la commande')
+                        ->html($html);
+                        $this->mailer->send($email);
+                        
+                    return $this->redirectToRoute('app_message_order'); //après validation du panier nous ramène à la page panier
+                        }
+                        
+                    $paymentStripe = new StripePayment(); //on importe notre service avec sa classe
+                    $shippingCost = $order->getCity()->getShippingCost();
+                    $paymentStripe->startPayment($data, $shippingCost, $order->getID()); // on importe le panier
+                    $stripeRedirectUrl = $paymentStripe->getStripeRedirectUrl(); 
+                    return $this->redirect($stripeRedirectUrl);    
+                    }
+                }
 
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),

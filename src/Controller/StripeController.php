@@ -59,7 +59,9 @@ final class StripeController extends AbstractController
             case 'payment_intent.succeeded':
                 $paymentIntent =$event->data->object;
                 $fileName = 'stripe-detail-'.uniqid().'txt';
-                file_put_contents($fileName, $paymentIntent);
+                $orderId =$paymentIntent->metadata->orderId;
+                // file_put_contents($fileName, $paymentIntent);
+                file_put_contents($fileName, $orderId);
                 break;
             case 'payment_method.attached':
                 $paymentMethod = $event->data->object;

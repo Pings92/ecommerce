@@ -14,7 +14,7 @@ class StripePayment{
         Stripe::setApiVersion('2026-02-25.clover');
     }
 
-    public function startPayment($cart, $shippingCost) {
+    public function startPayment($cart, $shippingCost, $orderId) {
 
     $cartProducts =$cart['cart'];
     $products =[
@@ -51,7 +51,10 @@ class StripePayment{
             'shipping_address_collection'=>[    
                 'allowed_countries' => ['FR', 'EG'],
             ], //pays dont on accepte les paiement
-            'metadata'=>[
+            'payment_intent_data' =>[
+                'metadata'=>[
+                    'orderId'=>$orderId
+            ]
             ]
         ]);
         $this->redirectUrl = $session->url;

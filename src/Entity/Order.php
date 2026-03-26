@@ -53,7 +53,7 @@ class Order
     private ?string $email = null;
 
     #[ORM\Column]
-    private ?bool $isPaymnentCompleted = null;
+    private ?bool $isPaymentCompleted = null;
 
     public function __construct()
     {
@@ -215,14 +215,14 @@ class Order
         return $this;
     }
 
-    public function isPaymnentCompleted(): ?bool
+    public function isPaymentCompleted(): ?bool
     {
-        return $this->isPaymnentCompleted;
+        return $this->isPaymentCompleted;
     }
 
-    public function setIsPaymnentCompleted(bool $isPaymnentCompleted): static
+    public function setIsPaymentCompleted(bool $isPaymentCompleted): static
     {
-        $this->isPaymnentCompleted = $isPaymnentCompleted;
+        $this->isPaymentCompleted = $isPaymentCompleted;
 
         return $this;
     }
