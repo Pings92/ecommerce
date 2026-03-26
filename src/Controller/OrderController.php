@@ -142,8 +142,8 @@ final class OrderController extends AbstractController
 
     #[Route('/editor/order/{id}/is-completed/delete', name:'app_order_is-completed-delete', methods: ['GET', 'POST'])]
     public function deleteOrder(Order $order,
-                                         EntityManagerInterface $entityManager,
-                                         )
+                                EntityManagerInterface $entityManager,
+                                )
     {
         $entityManager->remove($order);
         $entityManager->flush();

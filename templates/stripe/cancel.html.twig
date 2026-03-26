@@ -1,0 +1,394 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Badge Obtenu !{% endblock %}
+
+{% block body %}
+<style>
+    :root {
+        --pk-blue-dark: #204060;   /* Bordure extérieure */
+        --pk-blue-light: #5080b0;  /* Bordure intérieure */
+        --pk-white: #ffffff;       /* Fond du texte */
+        --pk-red: #ff0000;         /* Bouton principal */
+        --pk-bg: #f8f8f8;          /* Fond de page */
+    }
+
+    body {
+        background-color: #78c850; /* Vert "Herbes hautes" */
+        font-family: 'Press Start 2P', 'Courier New', monospace; /* Police Pixel si possible */
+        image-rendering: pixelated;
+    }
+
+    /* La fameuse boîte de dialogue Pokémon */
+    .pk-dialog-box {
+        max-width: 700px;
+        margin: 10% auto;
+        background-color: var(--pk-white);
+        border: 4px solid var(--pk-blue-dark);
+        border-radius: 15px; /* Légèrement arrondi comme sur GBA */
+        padding: 5px;
+        box-shadow: inset 0 0 0 4px var(--pk-blue-light);
+        position: relative;
+    }
+
+    .pk-content {
+        padding: 25px;
+        color: #303030;
+        line-height: 1.6;
+        font-size: 1.1rem;
+    }
+
+    /* Le badge de succès (façon Badge d'arène) */
+    .pk-badge {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #ffd700, #ffa500);
+        border: 3px solid #303030;
+        border-radius: 50%;
+        margin: -70px auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+        font-size: 40px;
+    }
+
+    /* Boutons "Menu de combat" */
+    .pk-menu {
+        display: flex;
+        flex-wrap: wrap;
+        border-top: 4px solid var(--pk-blue-dark);
+        margin-top: 20px;
+    }
+
+    .pk-btn {
+        flex: 1 1 50%;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        color: #303030;
+        font-weight: bold;
+        border: 2px solid transparent;
+        transition: all 0.1s;
+        text-transform: uppercase;
+    }
+
+    .pk-btn:hover {
+        background-color: #e0e0e0;
+        border: 2px solid var(--pk-blue-light);
+        color: var(--pk-blue-dark);
+    }
+
+    /* La petite flèche de dialogue qui clignote */
+    .pk-arrow {
+        position: absolute;
+        bottom: 15px;
+        right: 20px;
+        width: 0; 
+        height: 0; 
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 15px solid var(--pk-blue-dark);
+        animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+        0% { opacity: 0; }
+        50% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+</style>
+
+<div class="container">
+    <div class="pk-dialog-box">
+        <div class="pk-badge">
+            ⚡
+        </div>
+
+        <div class="pk-content">
+            <h2 style="font-size: 1.2rem; margin-bottom: 15px;">FÉLICITATIONS !</h2>
+            <p>
+                Le paiement a été effectué avec succès ! <br>
+                Votre commande a été ajoutée à votre <strong>SAC</strong>.
+            </p>
+            <p style="font-size: 0.8rem; color: #888;">
+                ID Transac: PKM-{{ "now"|date("Hi") }}-OK
+            </p>
+        </div>
+
+        <div class="pk-arrow"></div>
+
+        <div class="pk-menu">
+            <a href="#" class="pk-btn" style="border-right: 4px solid var(--pk-blue-dark);">
+                RETOUR
+            </a>
+            <a href="#" class="pk-btn">
+                NOUVELLE TÂCHE
+            </a>
+            <a href="#" class="pk-btn" style="border-top: 4px solid var(--pk-blue-dark); border-right: 4px solid var(--pk-blue-dark);">
+                POKÉDEX
+            </a>
+            <a href="#" class="pk-btn" style="border-top: 4px solid var(--pk-blue-dark);">
+                QUITTER
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{# Style STARDEW VALLEY
+{% extends 'base.html.twig' %}
+
+{% block title %}Objectif Atteint ! - Ferme de {{ 'main'|trans }} {% endblock %}
+
+{% block body %}
+<style>
+    /* Configuration Stardew Valley (Pixel Art Spirit) */
+    :root {
+        --sv-brown-dark: #3e2723;   /* Bordure extérieure */
+        --sv-brown-light: #a16e4b;  /* Fond principal */
+        --sv-beige: #e5c08d;        /* Fond intérieur */
+        --sv-yellow: #ffee58;       /* Texte important / Or */
+        --sv-green: #4caf50;        /* Succès / Qualité Iridium */
+        --sv-text: #211b15;         /* Texte sombre standard */
+    }
+
+    body {
+        /* Un fond inspiré de la carte du jeu ou d'une texture de sol */
+        background-color: #70b070; 
+        background-image: matrix(1, 0, 0, 1, 0, 0); /* Désactive l'anti-aliasing pour le pixel art */
+        font-family: 'Courier New', Courier, monospace; /* Police monospace pour l'effet retro */
+        color: var(--sv-text);
+        image-rendering: pixelated; /* Crucial pour le rendu Pixel Art */
+    }
+
+    /* Le conteneur principal façon "Boîte de dialogue de dialogue" */
+    .stardew-card {
+        max-width: 600px;
+        margin: 8% auto;
+        background-color: var(--sv-beige);
+        /* Double bordure pixel art */
+        border: 4px solid var(--sv-brown-dark);
+        outline: 4px solid var(--sv-brown-light);
+        box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
+        padding: 30px;
+        position: relative;
+    }
+
+    /* Le titre avec l'effet "Bannière de quête" */
+    .stardew-header {
+        background-color: var(--sv-brown-dark);
+        color: var(--sv-yellow);
+        padding: 10px;
+        border: 2px solid var(--sv-brown-light);
+        text-align: center;
+        margin-top: -50px; /* Fait dépasser le titre */
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+
+    /* Icône de succès (Étoile du Community Center) */
+    .icon-stardew {
+        font-size: 60px;
+        color: var(--sv-yellow);
+        text-shadow: 4px 4px 0 var(--sv-brown-dark);
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    /* Les boutons façon "Menu d'inventaire" */
+    .btn-sv {
+        display: inline-block;
+        background-color: var(--sv-brown-light);
+        color: white;
+        border: 4px solid var(--sv-brown-dark);
+        padding: 10px 20px;
+        text-decoration: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.1s;
+        margin: 10px;
+        cursor: pointer;
+    }
+
+    .btn-sv:hover {
+        background-color: var(--sv-brown-dark);
+        color: var(--sv-yellow);
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    }
+
+    /* Détails de la transaction façon "Expédition du jour" */
+    .shipping-details {
+        background-color: rgba(255,255,255,0.3);
+        border: 2px dashed var(--sv-brown-dark);
+        padding: 15px;
+        margin: 20px 0;
+        font-size: 0.9rem;
+    }
+
+    /* Petite décoration pixel */
+    .stardew-card::after {
+        content: "⭐";
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 20px;
+        opacity: 0.5;
+    }
+</style>
+
+<div class="container">
+    <div class="stardew-card text-center">
+        
+        <div class="stardew-header">
+            Quête Accomplie !
+        </div>
+
+        <div class="icon-stardew">
+            <i class="bi bi-star-fill">⭐</i>
+        </div>
+
+        <h2 class="h4 fw-bold mb-3" style="color: var(--sv-brown-dark);">
+            Votre expédition est confirmée.
+        </h2>
+        
+        <p class="mb-4">
+            Lewis a récupéré votre paiement dans la boîte d'expédition. <br>
+            Les fonds ont été ajoutés au grand livre de la ferme !
+        </p>
+
+        <div class="shipping-details">
+            <span class="text-muted">Reçu de la Mairie :</span> <br>
+            <strong style="color: var(--sv-brown-dark);">#SV-{{ "now"|date("dMy-His")|upper }}</strong>
+        </div>
+
+        <hr style="border: 2px solid var(--sv-brown-dark); opacity: 0.2; margin: 25px 0;">
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="#" class="btn-sv">
+                Retourner aux champs
+            </a>
+        </div>
+
+        <p class="mt-4 small italic" style="color: #555;">
+            "Une bonne journée de travail !"
+        </p>
+    </div>
+</div>
+{% endblock %} #}
+
+
+{# STYLE ANIMAL CROSSING #}
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Paiement Annulé - Nook Inc.{% endblock %}
+
+{% block body %}
+<style>
+    :root {
+        --nook-orange: #ff9d76;
+        --nook-dark-orange: #e8865d;
+        --nook-beige: #f9f6e5;
+        --nook-brown: #8d775f;
+    }
+
+    body {
+        background-color: #fff5f0; /* Fond pêche très clair */
+        font-family: 'Arial Rounded MT Bold', sans-serif;
+    }
+
+    .cancel-card {
+        background-color: var(--nook-beige);
+        border: 8px solid white;
+        border-radius: 50px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        padding: 40px;
+        margin-top: 10%;
+    }
+
+    .icon-circle-cancel {
+        width: 100px;
+        height: 100px;
+        background-color: var(--nook-orange);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        margin: 0 auto 20px;
+        box-shadow: 0 5px 0 var(--nook-dark-orange);
+    }
+
+    .btn-nook-secondary {
+        background-color: #a0d2eb; /* Bleu ciel doux */
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 30px;
+        font-weight: bold;
+        transition: transform 0.2s;
+        box-shadow: 0 4px 0 #89b8d0;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-nook-secondary:hover {
+        transform: scale(1.05);
+        color: white;
+        background-color: #89b8d0;
+    }
+
+    .alert-nook {
+        background: #ffffff;
+        border-left: 5px solid var(--nook-orange);
+        border-radius: 10px;
+        padding: 15px;
+        color: var(--nook-brown);
+        font-size: 0.9rem;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="cancel-card">
+                <div class="icon-circle-cancel">
+                    <i class="bi bi-x-lg">!</i>
+                </div>
+
+                <h1 class="display-6 fw-bold mb-3" style="color: var(--nook-brown);">
+                    Oh... Une petite erreur ?
+                </h1>
+                
+                <p class="lead mb-4" style="color: #777;">
+                    Le paiement a été annulé ou n'a pas pu aboutir. <br>
+                    Pas de panique, aucune clochette n'a été prélevée !
+                </p>
+
+                <div class="alert-nook mb-4 text-start">
+                    <strong>Note de Nook Inc :</strong> <br>
+                    Cela peut arriver si vous avez fermé la fenêtre trop tôt ou si votre banque a pris peur devant tant de clochettes.
+                </div>
+
+                <hr class="my-4" style="border-top: 2px dashed #d1ccb0;">
+
+                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                    <a href="#" class="btn-nook-secondary">
+                        Réessayer plus tard
+                    </a>
+                    <a href="#" class="btn btn-link text-muted" style="text-decoration: none;">
+                        Retourner au village
+                    </a>
+                </div>
+
+                <p class="mt-4 small text-muted italic">
+                    "Prenez votre temps, la boutique ne s'envolera pas !" — Tom Nook
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} #}

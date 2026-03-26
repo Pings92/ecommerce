@@ -52,6 +52,9 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[ORM\Column]
+    private ?bool $isPaymnentCompleted = null;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
@@ -208,6 +211,18 @@ class Order
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function isPaymnentCompleted(): ?bool
+    {
+        return $this->isPaymnentCompleted;
+    }
+
+    public function setIsPaymnentCompleted(bool $isPaymnentCompleted): static
+    {
+        $this->isPaymnentCompleted = $isPaymnentCompleted;
 
         return $this;
     }

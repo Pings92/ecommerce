@@ -55,6 +55,9 @@ class StripePayment{
             ]
         ]);
         $this->redirectUrl = $session->url;
+        //  return ([
+        //     'sessionState' => $session, 
+        // ]);
     }
 
     public function getStripeRedirectUrl(){

@@ -28,7 +28,7 @@ final class BillController extends AbstractController
         // $domPdf->stream('bill-'.$order->getId().'.pdf',[
         //     'Attachement'=> false
         // ]);
-         // on ajoute l'ext pdf, attfalse permet de choisir de voir ou imp la facture
+         // on ajoute l'ext pdf, attr false permet de choisir de voir ou imp la facture
         return new Response($output,200,[
             'Content-Type' =>'application/pdf',
             'Content-Disposition' => 'inline; filename="bill-' . $order->getId() . '.pdf"',
