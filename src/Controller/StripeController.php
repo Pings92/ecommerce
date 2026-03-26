@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\OrderRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +37,10 @@ final class StripeController extends AbstractController
     }
 
     #[Route('/stripe/notify', name: 'app_stripe_notify')]
-    public function stripeNotify(Request $request): Response
+    public function stripeNotify(Request $request,
+                                 OrderRepository $orderRepository,
+                                 EntityManagerInterface $entityManager
+                                 ): Response
     {
         Stripe::setApiKey($_SERVER['STRIPE_SECRET_KEY']);
 
@@ -58,10 +63,13 @@ final class StripeController extends AbstractController
         switch ($event->type){
             case 'payment_intent.succeeded':
                 $paymentIntent =$event->data->object;
-                $fileName = 'stripe-detail-'.uniqid().'txt';
-                $orderId =$paymentIntent->metadata->orderId;
+                // $fileName = 'stripe-detail-'.uniqid().'txt';
+                $orderId = $paymentIntent->metadata->orderId;
+                $order = $orderRepository->find($orderId);
+                $order->setIsPaymentCompleted(1);
+                $entityManager->flush();
                 // file_put_contents($fileName, $paymentIntent);
-                file_put_contents($fileName, $orderId);
+                // file_put_contents($fileName, $orderId);
                 break;
             case 'payment_method.attached':
                 $paymentMethod = $event->data->object;
