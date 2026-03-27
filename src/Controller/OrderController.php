@@ -149,14 +149,13 @@ final class OrderController extends AbstractController
     #[Route('/editor/order/{id}/is-completed/update', name:'app_order_is-completed-update', methods: ['GET', 'POST'])]
     public function switchCompletedState($id, OrderRepository $orderRepository,
                                          EntityManagerInterface $entityManager,
-                                         )
+                                         Request $request)
     {
         $statut = $orderRepository->find($id);
         $statut-> setIsCompleted(true);
         $entityManager->flush($statut);
         $this->addFlash('success', "Status modifié avec succès");
-        return $this->redirectToRoute('app_order_shows', [
-        ]);
+        return $this->redirect($request->headers->get('referer'));
         }
 
     #[Route('/editor/order/{id}/is-completed/delete', name:'app_order_is-completed-delete', methods: ['GET', 'POST'])]

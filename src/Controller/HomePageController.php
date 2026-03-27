@@ -25,6 +25,10 @@ final class HomePageController extends AbstractController
                           SubCategoryRepository $subCategoryRepository
                           ): Response
     {
+        // $p = $productRepository->findByIdUp(18);
+        // dd($p);
+        // $search = $productRepository->searchEngine('gamme');
+        // dd($search);
         // $products = $productRepository->findAll();
         $data= $productRepository->findby([], ['id'=>"DESC"]);
         $products = $paginator->paginate(

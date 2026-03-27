@@ -1,59 +1,57 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary"data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('app_home_page') }}">Suspens</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
+
+    <div class="collapse navbar-collapse align-items-center" id="navbarNavDropdown">
+      
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{ path('app_home_page') }}">Home</a>
         </li>
+
         {% if categories is defined %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Categories
             </a>
             <ul class="dropdown-menu">
-            {% for category in categories %}
-              <li><a class="dropdown-item" href="#">{{category.name}}</a></li>
+              {% for category in categories %}
+                <li><h6 class="dropdown-header">{{category.name}}</h6></li>
                 {% for subCategory in category.subCategories %}
-                                <li><a class="dropdown-item" href="{{ path('app_product_filter', {'id':subCategory.id}) }}">{{subCategory.name}}</a></li>
+                  <li><a class="dropdown-item" href="{{ path('app_product_filter', {'id':subCategory.id}) }}">{{subCategory.name}}</a></li>
                 {% endfor %}
                 <li><hr class="dropdown-divider"></li>
-            {% endfor %}
+              {% endfor %}
             </ul>
           </li>
-          {% endif %}
-        {% if is_granted("ROLE_ADMIN") %}
-    {# if is_granted('ROLE_ADMIN') est une condition qui vérifie si l'utilisateur connecté a le rôle ROLE_ADMIN,
-     ce qui permet d'afficher le menu "Admin" uniquement aux utilisateurs ayant ce rôle,
-     assurant ainsi que les fonctionnalités d'administration ne sont accessibles qu'aux utilisateurs autorisés.#}
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Admin
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ path('app_category') }}">Categories Manager</a></li>
-            <li><a class="dropdown-item" href="{{ path('app_category_new') }}">Ajouter une nouvelle categorie</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{{ path('app_sub_category_index') }}">Sous-catégories Manager</a></li>
-            <li><a class="dropdown-item" href="{{ path('app_sub_category_new') }}">Ajouter une sous-catégories</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{{ path('app_product_index') }}">Product Manager</a></li>
-            <li><a class="dropdown-item" href="{{ path('app_product_new') }}">Ajouter un produit</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Utilisateurs</a></li>
-            {# <li><a class="dropdown-item" href="{{ path('app_order_shows') }}">Historique des commanndes</a></li> #}
-          </ul>
-        </li>
         {% endif %}
-        {% if app.user == false %}
+
+        {% if is_granted("ROLE_ADMIN") %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ path('app_category') }}">Categories Manager</a></li>
+              <li><a class="dropdown-item" href="{{ path('app_category_new') }}">Ajouter une nouvelle categorie</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ path('app_sub_category_index') }}">Sous-catégories Manager</a></li>
+              <li><a class="dropdown-item" href="{{ path('app_sub_category_new') }}">Ajouter une sous-catégories</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{ path('app_product_index') }}">Product Manager</a></li>
+              <li><a class="dropdown-item" href="{{ path('app_product_new') }}">Ajouter un produit</a></li>
+            </ul>
+          </li>
+        {% endif %}
+
+        {% if app.user %}
           <li class="nav-item">
             <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
           </li>
-          {% else %}
+        {% else %}
           <li class="nav-item">
             <a class="nav-link" href="{{ path('app_register') }}">Register</a>
           </li>
@@ -61,22 +59,24 @@
             <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
           </li>
         {% endif %}
+
         {% if is_granted('ROLE_EDITOR') %}
-            <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Commandes
             </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{ path('app_order_shows',{'type':'is-completed'}) }}">Commande livré</a></li>
-            <li><a class="dropdown-item" href="{{ path('app_order_shows',{'type':'no_delivery'}) }}">Commande non livré</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{{ path('app_order_shows',{'type':'pay-on-stripe-not-delivered'}) }}">Commande payée en ligne non livré</a></li>
-            <li><a class="dropdown-item" href="{{ path('app_order_shows',{'type':'pay-on-stripe-is-delivered'}) }}">Commande payée en ligne livré</a></li>
-
-          
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ path('app_order_shows',{'type':'is-completed'}) }}">Commande livré</a></li>
+              <li><a class="dropdown-item" href="{{ path('app_order_shows',{'type':'no_delivery'}) }}">Commande non livré</a></li>
+            </ul>
+          </li>
         {% endif %}
-        
       </ul>
+
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" id="search-term" type="search" placeholder="Search" aria-label="Search"/>
+        <button id='searchButton' class="btn btn-outline-success" type="submit" href="{{ path ('app_search')}}">Search</button>
+      </form>
     </div>
   </div>
 </nav>
