@@ -46,7 +46,8 @@ final class OrderController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
                 if(!empty($data['total'])){
-                    $order->setTotalPrice($data['total']);
+                    $totalPrice = $data['total'] + $order->getCity()->getShippingCost();
+                    $order->setTotalPrice($totalPrice);
                     $order->setCreatedAt(new DateTimeImmutable());
                     $order->setisPaymentCompleted(0);
                     $entityManager->persist($order);
@@ -111,22 +112,37 @@ final class OrderController extends AbstractController
         return $this->render('order/order_message.html.twig');
     }
 
-    #[Route('/editor/order', name:'app_order_shows', methods: ['GET'])]
-    public function getAllOrder(UserRepository $userRepository,
+    #[Route('/editor/order/{type}/', name:'app_order_shows', methods: ['GET'])]
+    public function getAllOrder($type,
+                                UserRepository $userRepository,
                                 PaginatorInterface $paginator,
                                 OrderRepository $orderRepository,
                                 Request $request,
                                 ): Response
-    {
+    {   
+        if($type =='is-completed') {
+            $data = $orderRepository->findBy(['isCompleted'=>1], ['id'=>"DESC"]);
+        }
+        else if($type == 'pay-on-stripe-not-delivered'){
+            $data = $orderRepository->findBy(['isCompleted'=>null, 'payOnDelivery'=>0, 'isPaymentCompleted'=>1], ['id'=>"DESC"]);
+        }
+        else if($type == 'pay-on-stripe-is-delivered'){
+            $data = $orderRepository->findBy(['isCompleted'=>1, 'payOnDelivery'=>0, 'isPaymentCompleted'=>1], ['id'=>"DESC"]);
+        }
+        else if($type == 'no_delivery'){
+            $data = $orderRepository->findBy(['isCompleted'=>null, 'payOnDelivery'=>0, 'isPaymentCompleted'=>0], ['id'=>"DESC"]);
+        }
+
         // $order = $orderRepository->findAll();
-        $data= $orderRepository->findby([], ['id'=>"DESC"]);
+        // $data= $orderRepository->findby([], ['id'=>"DESC"]);
         $order = $paginator->paginate(
         $data,
         $request->query->getInt('page',1),
         2
         );
         return $this->render('order/all_orders.html.twig',[
-        'orders'=>$order
+        'orders'=>$order,
+        'type' => $type
         ]);
     }
 
