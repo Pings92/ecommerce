@@ -1,30 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomePageController!{% endblock %}
+{% block title %}Boutique Alpha | Dominez votre style{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Ma page d'accueil</h1>
-</div>
 <div class="container my-5">
+    <div class="example-wrapper mb-5">
+        {# <h1 class="display-4 text-uppercase fw-bold">Nos Équipements</h1> #}
+        <h1 class="display-4 text-uppercase fw-bold">La sélection des leaders.</h1>
+        {# <p class="text-muted">La sélection des leaders.</p> #}
+    </div>
+
+    {# La grille : 3 produits par ligne sur grand écran #}
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for product in products %}
             <div class="col">
-                <div class="card h-100 shadow-sm">
-                    <img src="{{ asset('uploads/images/' ~ product.images) }}" class="card-img-top" alt="{{ product.name }}">
-                    <div class="card-body d-flex flex-column">
+                <div class="card h-100 alpha-card">
+                    {# Conteneur d'image fixe #}
+                    <div class="alpha-img-container">
+                        <img src="{{ asset('uploads/images/' ~ product.images) }}" 
+                             class="card-img p-0" 
+                             alt="{{ product.name }}">
+                    </div>
+
+                    <div class="card-body d-flex flex-column text-center">
                         <a href="{{ path('app_home_product_show', {'id' : product.id}) }}" class="text-decoration-none">
-                            <h5 class="card-title text-dark">{{ product.name }}</h5>
+                            <h5 class="card-title text-uppercase">{{ product.name }}</h5>
                         </a>
-                        <p class="card-text text-muted"> {{ product.description|slice(0, 60) }}...</p>
-                        <div class="mt-auto">
-                            <a href="{{ path('app_cart_new', {'id' : product.id}) }}" class="btn btn-primary w-100">
-                                Ajouter au panier
+                        
+                        {# On fixe la hauteur du texte pour l'alignement #}
+                        <p class="card-text flex-grow-1"> 
+                            {{ product.description|slice(0, 60) }}...
+                        </p>
+
+                        <div class="mt-3">
+                            <a href="{{ path('app_cart_new', {'id' : product.id}) }}" class="btn btn-primary w-100 py-3">
+                                ACQUÉRIR
                             </a>
                         </div>
                     </div>
@@ -33,8 +43,38 @@
         {% endfor %}
     </div>
 
-    <div class="d-flex justify-content-center mt-5">
+    <div class="d-flex justify-content-center mt-5 alpha-pagination">
         {{ knp_pagination_render(products, 'layouts/_pagination_template.html.twig') }}
     </div>
 </div>
+
+<style>
+    /* Forcer l'aspect ratio des images (3/4 pour un look imposant) */
+    .alpha-img-container {
+        width: 100%;
+        height: 350px; /* Ajuste cette valeur selon tes besoins */
+        overflow: hidden;
+        background-color: #000;
+    }
+
+    .alpha-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Coupe l'image pour remplir le cadre sans la déformer */
+        object-position: center;
+    }
+
+    /* Uniformiser la hauteur du texte de description */
+    .card-text {
+        height: 50px; 
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+    /* Style du titre de la page */
+    .example-wrapper h1 {
+        border-left: 5px solid #E60000;
+        padding-left: 15px;
+    }
+</style>
 {% endblock %}

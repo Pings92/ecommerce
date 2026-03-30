@@ -9,12 +9,36 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/my_ecommerce_directory/src/Controller/SearchController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/my_ecommerce_directory/templates/search/index.html.twig</code></li>
-    </ul>
+        {% for product in products %}
+            <div class="col">
+                <div class="card h-100 alpha-card">
+                    {# Conteneur d'image fixe #}
+                    <div class="alpha-img-container">
+                        <img src="{{ asset('uploads/images/' ~ product.images) }}" 
+                             class="card-img p-0" 
+                             alt="{{ product.name }}">
+                    </div>
+
+                    <div class="card-body d-flex flex-column text-center">
+                        <a href="{{ path('app_home_product_show', {'id' : product.id}) }}" class="text-decoration-none">
+                            <h5 class="card-title text-uppercase">{{ product.name }}</h5>
+                        </a>
+                        
+                        {# On fixe la hauteur du texte pour l'alignement #}
+                        <p class="card-text flex-grow-1"> 
+                            {{ product.description|slice(0, 60) }}...
+                        </p>
+
+                        <div class="mt-3">
+                            <a href="{{ path('app_cart_new', {'id' : product.id}) }}" class="btn btn-primary w-100 py-3">
+                                ACQUÉRIR
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
 </div>
 {% endblock %}

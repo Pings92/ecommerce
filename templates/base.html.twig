@@ -20,5 +20,130 @@
             {% include 'layouts/_navbar.html.twig' %}
         {% endblock %}
         {% block body %}{% endblock %}
+        {# ... ton block body ... #}
+
+<footer class="alpha-footer">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <h3 class="footer-logo">ALPHA<span>FUEL</span></h3>
+                <p class="footer-tagline">Optimisation biologique. Performance sans compromis.</p>
+                <div class="footer-socials">
+                    <a href="#">INSTAGRAM</a> <a href="#">YOUTUBE</a>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-2 offset-lg-2">
+                <h5 class="footer-title">Suppléments</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#">Testo Boosters</a></li>
+                    <li><a href="#">Focus Mental</a></li>
+                    <li><a href="#">Force Brute</a></li>
+                    <li><a href="#">Récupération</a></li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-lg-2">
+                <h5 class="footer-title">Entraînement</h5>
+                <ul class="list-unstyled">
+                    {# Lien vers le site de ton pote #}
+                    <li><a href="URL_DU_POTE" target="_blank" style="color: #E60000;">Programmes Elite ↗</a></li>
+                    <li><a href="#">Coaching Privé</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-2">
+                <h5 class="footer-title">Protocole</h5>
+                <p class="small text-muted">Reçois les mises à jour du labo.</p>
+                <input type="email" class="form-control-alpha" placeholder="TON EMAIL">
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ALPHA FUEL - ENGINEERED FOR LEADERS.</p>
+        </div>
+    </div>
+</footer>
+    {# On ajoute le CSS spécifique ici ou dans ton app.css #}
+    <style>
+        .alpha-footer {
+            background-color: #050505;
+            color: #fff;
+            padding: 80px 0 30px 0;
+            border-top: 4px solid #1a1a1a;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: #E60000;
+        }
+
+        .footer-tagline {
+            color: #666;
+            font-style: italic;
+            border-left: 2px solid #E60000;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+
+        .footer-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: #E60000;
+        }
+
+        .alpha-footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .alpha-footer ul li a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .alpha-footer ul li a:hover {
+            color: #fff;
+        }
+
+        .form-control-alpha {
+            background: #111;
+            border: 1px solid #333;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border-radius: 0;
+            font-size: 0.8rem;
+        }
+
+        .footer-socials a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #1a1a1a;
+            text-align: center;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #444;
+        }
+    </style>
     </body>
 </html>

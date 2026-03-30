@@ -14,11 +14,9 @@ final class SearchController extends AbstractController
     public function index(ProductRepository $productRepository, Request $request): Response
     {
         // $keyword= 'le search de ma nav bar';
-        $keyword = $request->query->get('search-term');
+        $product = $request->query->get('search-term');
         
         // $search = $productRepository->searchEngine('Ma variable qui va être les mots du client dans la barre de recherche keyword dans mon cas');
-
-
 
         // requirement:[_method:POST];
         
@@ -26,13 +24,40 @@ final class SearchController extends AbstractController
         // $this->getRequest()->isMethod('POST');
         
         //possibilité 2
-        if ($request->isMethod('POST')){
-                $search = $productRepository->searchEngine('$keyword');
-                dd($search);
-            }
+        if ($formulaire->isSubmitted() && $formulaire->isValid()) {
+            if ($request->isMethod('POST')){
+                    $search = $productRepository->searchEngine('$keyword');
+                    dd($search);
+                }
+        }
 
         return $this->redirect('search/index.html.twig', [
-            'controller_name' => 'SearchController',
+            'products' => $product,
         ]);
     }
+
+        #[Route('/search', name: 'app_search',methods: ['GET', 'POST'])]
+    public function index(ProductRepository $productRepository, Request $request): Response
+    {
+        // $keyword= 'le search de ma nav bar';
+        $product = $request->query->get('search-term');
+        
+        // $search = $productRepository->searchEngine('Ma variable qui va être les mots du client dans la barre de recherche keyword dans mon cas');
+
+        // requirement:[_method:POST];
+        
+        //possibilité 1
+        // $this->getRequest()->isMethod('POST');
+        
+        //possibilité 2
+        if ($formulaire->isSubmitted() && $formulaire->isValid()) {
+            if ($request->isMethod('POST')){
+                    $search = $productRepository->searchEngine('$keyword');
+                    dd($search);
+                }
+        }
+
+        return $this->redirect('search/index.html.twig', [
+            'products' => $product,
+        ]);
 }

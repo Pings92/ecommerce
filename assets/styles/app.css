@@ -1,33 +1,165 @@
+/* Importation de la police d'impact */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap');
+
 body {
-    background-color: #F5EBE0;
+    background-color: #0A0A0A; /* Noir Profond */
+    color: #F2F2F2;           /* Blanc Cassé pour la lecture */
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    text-transform: uppercase; /* Donne un côté plus autoritaire */
 }
-.loginform{
-    width: 400px;
-    text-align: center;
+
+/* Titres */
+h1, h2, .theHate {
+    font-family: 'Bebas Neue', cursive;
+    letter-spacing: 2px;
 }
-.containerForm{
+
+.containerForm {
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 100%;
     height: 100vh;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
 }
-.form-control{
+
+.loginform {
+    width: 400px;
+    padding: 40px;
+    background-color: #111;
+    border: 1px solid #333; /* Bordure discrète type "acier" */
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.form-control {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;  
+    gap: 20px; /* Plus d'espace pour respirer */
+    margin-bottom: 20px;
 }
 
-.theHate{
+/* Style des inputs pour plus de sévérité */
+input {
+    background: #000;
+    border: 1px solid #444;
+    color: white;
+    padding: 12px;
+    font-family: 'Inter', sans-serif;
+    transition: border 0.3s;
+}
+
+input:focus {
+    border-color: #E60000; /* Le rouge d'accentuation en focus */
+    outline: none;
+}
+
+/* Liens et Boutons */
+.theHate {
     text-decoration: none;
+    color: #E60000;
+    font-size: 1.2rem;
+    transition: color 0.3s;
 }
 
-.imgHomeShow{
+.theHate:hover {
+    color: #ff3333;
+    text-decoration: underline;
+}
+
+/* Images avec filtres pour plus de caractère */
+.imgHomeShow {
     width: 400px; 
     height: 400px;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2); /* Look noir et blanc dramatique */
+    border: 4px solid #333;
 }
-.imgLastAdded{
+
+.imgLastAdded {
     max-width: 250px;
     max-height: 250px; 
+    filter: grayscale(50%);
+    border-left: 5px solid #E60000; /* Rappel de la couleur d'accent */
+    padding-left: 10px;
+}
+
+/* --- ADAPTATION DES CARDS "ALPHA" --- */
+
+.example-wrapper h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: #F2F2F2;
+    text-align: center;
+    letter-spacing: 3px;
+    border-bottom: 3px solid #E60000;
+    display: inline-block;
+}
+
+/* La Card */
+.card {
+    background-color: #111 !important; /* Fond sombre */
+    border: 1px solid #333 !important;   /* Bordure fine acier */
+    border-radius: 0 !important;          /* On enlève les arrondis pour plus de dureté */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #E60000 !important; /* Lueur rouge au survol */
+}
+
+/* Image de la Card */
+.card-img-top {
+    border-radius: 0 !important;
+    filter: grayscale(100%) brightness(0.8);
+    transition: filter 0.3s ease;
+}
+
+.card:hover .card-img-top {
+    filter: grayscale(0%) brightness(1); /* La couleur revient au survol */
+}
+
+/* Texte dans la Card */
+.card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    color: #F2F2F2 !important;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.card-text {
+    color: #888 !important; /* Gris discret pour la description */
+    font-size: 0.9rem;
+    text-transform: none; /* On garde la description lisible */
+}
+
+/* Bouton "Ajouter au Panier" */
+.btn-primary {
+    background-color: #E60000 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    padding: 10px;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #B30000 !important; /* Rouge plus sombre au survol */
+}
+
+/* Pagination (KNP) */
+.pagination .page-link {
+    background-color: #111;
+    border-color: #333;
+    color: #F2F2F2;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #E60000;
+    border-color: #E60000;
 }
