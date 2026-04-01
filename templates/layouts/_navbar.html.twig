@@ -74,9 +74,9 @@
         {% endif %}
       </ul>
 
-      <form class="d-flex" role="search" method="post" action="{{path('app-search')}}">
-        <input class="form-control me-2" id="search-term" type="search" placeholder="Search" aria-label="Search"/>
-        <button id='searchButton' class="btn btn-outline-success" type="submit" href="{{ path ('app_search')}}">Rechercher</button>
+      <form class="d-flex" role="search" method="get" action="{{path('app_search')}}">
+        <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name='word'/>
+        <button class="btn btn-outline-success" type="submit">Rechercher</button>
       </form>
     </div>
   </div>
