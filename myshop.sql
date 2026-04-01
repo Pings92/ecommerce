@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 26 mars 2026 à 05:52
+-- Généré le : mer. 01 avr. 2026 à 06:41
 -- Version du serveur : 8.4.7
--- Version de PHP : 8.4.15
+-- Version de PHP : 8.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -90,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `category` (
 --
 
 INSERT INTO `category` (`id`, `name`) VALUES
-(4, 'Chemise'),
 (2, 'Complément Alimentaire'),
 (3, 'Injection'),
 (8, 'Merchandising');
@@ -152,7 +151,9 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20260323073908', '2026-03-23 07:40:55', 184),
 ('DoctrineMigrations\\Version20260323092241', '2026-03-23 09:23:08', 252),
 ('DoctrineMigrations\\Version20260324104025', '2026-03-24 10:40:49', 279),
-('DoctrineMigrations\\Version20260325094904', '2026-03-25 09:49:37', 73);
+('DoctrineMigrations\\Version20260325094904', '2026-03-25 09:49:37', 73),
+('DoctrineMigrations\\Version20260326124357', '2026-03-26 12:44:24', 418),
+('DoctrineMigrations\\Version20260326124917', '2026-03-26 12:49:39', 288);
 
 -- --------------------------------------------------------
 
@@ -171,7 +172,16 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
   `delivered_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_75EA56E0FB7336F0E3BD61CE16BA31DBBF396750` (`queue_name`,`available_at`,`delivered_at`,`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `messenger_messages`
+--
+
+INSERT INTO `messenger_messages` (`id`, `body`, `headers`, `queue_name`, `created_at`, `available_at`, `delivered_at`) VALUES
+(4, 'O:36:\\\"Symfony\\\\Component\\\\Messenger\\\\Envelope\\\":2:{s:44:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Envelope\\0stamps\\\";a:1:{s:46:\\\"Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\\";a:1:{i:0;O:46:\\\"Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\\":1:{s:55:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\0busName\\\";s:21:\\\"messenger.bus.default\\\";}}}s:45:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Envelope\\0message\\\";O:51:\\\"Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\\":2:{s:60:\\\"\\0Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\0message\\\";O:28:\\\"Symfony\\\\Component\\\\Mime\\\\Email\\\":6:{i:0;N;i:1;N;i:2;s:2024:\\\"    <div class=\\\'container\\\'>\n        <h1>Confirmationd de commande 17</h1>\n        <span> Date: March 26, 2026 13:12</span>\n        <p>Merci pour votre commande elle sera traité dans les plus bref délais</p>\n        <span class=\\\'text-primary\\\'>Détails de la commande</span>\n                <br>\n        <h5> Info Client</h5>\n        <table class=\\\"table table-bordered\\\">\n            <thead>\n                <tr>\n                    <th>Nom</th>\n                    <th>Creation date</th>\n                    <th>Adresse</th>\n                    <th>numéro de téléphone</th>\n                    <th>Paiement à la livraison</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td>Sora ROKUSASU</td>\n                    <td>date de la commande</td>\n                    <td>Place de la Fontaine, <br> Merignac</td>\n                    <td>0613010111</td>\n                                            <td>Oui</td>\n                                    </tr> \n            </tbody>\n        </table>\n\n        <table class=\\\"table table-bordered\\\">\n        <h5>Produits de la commande</h5>  \n        <thead>\n            <tr>\n                <th></th>\n                <th>Article</th>\n                <th>Quantité</th>\n                <th>Prix unitaire</th>\n                <th>Prix</th>\n            </tr>\n        </thead>\n         \n        <th>Total à payer</th>\n        <td>208 €<span style=\\\"font-size:10px\\\"> hors frais de livraison</span></td>\n        </table>\n        <span>Frais de livraison : 0.5 € (Merignac)</span>\n        <h5>Total à payer : 208.5 €</h5>\n    </div>\n    <style>\n        table{\n            width: 100%;\n            border-collapse: collapse;\n        }        \n        th, td{\n            padding: 8%;\n            border: 1px solid #ddd;\n            text-align:left;\n        }\n        thead{\n            background: #f2f2f2;\n        }        \n        tbody tr:nth-child(odd){\n            background: #f9f9f9 ;      \n        }        \n    </style>\\\";i:3;s:5:\\\"utf-8\\\";i:4;a:0:{}i:5;a:2:{i:0;O:37:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\\":2:{s:46:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\0headers\\\";a:3:{s:4:\\\"from\\\";a:1:{i:0;O:47:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:4:\\\"From\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:58:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\0addresses\\\";a:1:{i:0;O:30:\\\"Symfony\\\\Component\\\\Mime\\\\Address\\\":2:{s:39:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0address\\\";s:18:\\\"bidkad@hotmail.com\\\";s:36:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0name\\\";s:0:\\\"\\\";}}}}s:2:\\\"to\\\";a:1:{i:0;O:47:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:2:\\\"To\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:58:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\0addresses\\\";a:1:{i:0;O:30:\\\"Symfony\\\\Component\\\\Mime\\\\Address\\\":2:{s:39:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0address\\\";s:28:\\\"YamiNoSekai@kingdomheart.com\\\";s:36:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0name\\\";s:0:\\\"\\\";}}}}s:7:\\\"subject\\\";a:1:{i:0;O:48:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\UnstructuredHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:7:\\\"Subject\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:55:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\UnstructuredHeader\\0value\\\";s:41:\\\"Confirmation de réception de la commande\\\";}}}s:49:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\0lineLength\\\";i:76;}i:1;N;}}s:61:\\\"\\0Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\0envelope\\\";N;}}', '[]', 'default', '2026-03-26 13:13:00', '2026-03-26 13:13:00', NULL),
+(5, 'O:36:\\\"Symfony\\\\Component\\\\Messenger\\\\Envelope\\\":2:{s:44:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Envelope\\0stamps\\\";a:1:{s:46:\\\"Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\\";a:1:{i:0;O:46:\\\"Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\\":1:{s:55:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\0busName\\\";s:21:\\\"messenger.bus.default\\\";}}}s:45:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Envelope\\0message\\\";O:51:\\\"Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\\":2:{s:60:\\\"\\0Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\0message\\\";O:28:\\\"Symfony\\\\Component\\\\Mime\\\\Email\\\":6:{i:0;N;i:1;N;i:2;s:2007:\\\"    <div class=\\\'container\\\'>\n        <h1>Confirmationd de commande 27</h1>\n        <span> Date: March 26, 2026 14:29</span>\n        <p>Merci pour votre commande elle sera traité dans les plus bref délais</p>\n        <span class=\\\'text-primary\\\'>Détails de la commande</span>\n                <br>\n        <h5> Info Client</h5>\n        <table class=\\\"table table-bordered\\\">\n            <thead>\n                <tr>\n                    <th>Nom</th>\n                    <th>Creation date</th>\n                    <th>Adresse</th>\n                    <th>numéro de téléphone</th>\n                    <th>Paiement à la livraison</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td>Sora ROKUSASU</td>\n                    <td>date de la commande</td>\n                    <td>shdnn, <br> Merignac</td>\n                    <td>0613010111</td>\n                                            <td>Oui</td>\n                                    </tr> \n            </tbody>\n        </table>\n\n        <table class=\\\"table table-bordered\\\">\n        <h5>Produits de la commande</h5>  \n        <thead>\n            <tr>\n                <th></th>\n                <th>Article</th>\n                <th>Quantité</th>\n                <th>Prix unitaire</th>\n                <th>Prix</th>\n            </tr>\n        </thead>\n         \n        <th>Total à payer</th>\n        <td>21 €<span style=\\\"font-size:10px\\\"> hors frais de livraison</span></td>\n        </table>\n        <span>Frais de livraison : 0.5 € (Merignac)</span>\n        <h5>Total à payer : 21.5 €</h5>\n    </div>\n    <style>\n        table{\n            width: 100%;\n            border-collapse: collapse;\n        }        \n        th, td{\n            padding: 8%;\n            border: 1px solid #ddd;\n            text-align:left;\n        }\n        thead{\n            background: #f2f2f2;\n        }        \n        tbody tr:nth-child(odd){\n            background: #f9f9f9 ;      \n        }        \n    </style>\\\";i:3;s:5:\\\"utf-8\\\";i:4;a:0:{}i:5;a:2:{i:0;O:37:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\\":2:{s:46:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\0headers\\\";a:3:{s:4:\\\"from\\\";a:1:{i:0;O:47:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:4:\\\"From\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:58:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\0addresses\\\";a:1:{i:0;O:30:\\\"Symfony\\\\Component\\\\Mime\\\\Address\\\":2:{s:39:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0address\\\";s:18:\\\"bidkad@hotmail.com\\\";s:36:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0name\\\";s:0:\\\"\\\";}}}}s:2:\\\"to\\\";a:1:{i:0;O:47:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:2:\\\"To\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:58:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\0addresses\\\";a:1:{i:0;O:30:\\\"Symfony\\\\Component\\\\Mime\\\\Address\\\":2:{s:39:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0address\\\";s:28:\\\"YamiNoSekai@kingdomheart.com\\\";s:36:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0name\\\";s:0:\\\"\\\";}}}}s:7:\\\"subject\\\";a:1:{i:0;O:48:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\UnstructuredHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:7:\\\"Subject\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:55:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\UnstructuredHeader\\0value\\\";s:41:\\\"Confirmation de réception de la commande\\\";}}}s:49:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\0lineLength\\\";i:76;}i:1;N;}}s:61:\\\"\\0Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\0envelope\\\";N;}}', '[]', 'default', '2026-03-26 14:29:05', '2026-03-26 14:29:05', NULL),
+(6, 'O:36:\\\"Symfony\\\\Component\\\\Messenger\\\\Envelope\\\":2:{s:44:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Envelope\\0stamps\\\";a:1:{s:46:\\\"Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\\";a:1:{i:0;O:46:\\\"Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\\":1:{s:55:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\BusNameStamp\\0busName\\\";s:21:\\\"messenger.bus.default\\\";}}}s:45:\\\"\\0Symfony\\\\Component\\\\Messenger\\\\Envelope\\0message\\\";O:51:\\\"Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\\":2:{s:60:\\\"\\0Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\0message\\\";O:28:\\\"Symfony\\\\Component\\\\Mime\\\\Email\\\":6:{i:0;N;i:1;N;i:2;s:2022:\\\"    <div class=\\\'container\\\'>\n        <h1>Confirmationd de commande 30</h1>\n        <span> Date: March 26, 2026 14:33</span>\n        <p>Merci pour votre commande elle sera traité dans les plus bref délais</p>\n        <span class=\\\'text-primary\\\'>Détails de la commande</span>\n                <br>\n        <h5> Info Client</h5>\n        <table class=\\\"table table-bordered\\\">\n            <thead>\n                <tr>\n                    <th>Nom</th>\n                    <th>Creation date</th>\n                    <th>Adresse</th>\n                    <th>numéro de téléphone</th>\n                    <th>Paiement à la livraison</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td>Sora ROKUSASU</td>\n                    <td>date de la commande</td>\n                    <td>Place de la Fontaine, <br> Merignac</td>\n                    <td>0613010111</td>\n                                            <td>Oui</td>\n                                    </tr> \n            </tbody>\n        </table>\n\n        <table class=\\\"table table-bordered\\\">\n        <h5>Produits de la commande</h5>  \n        <thead>\n            <tr>\n                <th></th>\n                <th>Article</th>\n                <th>Quantité</th>\n                <th>Prix unitaire</th>\n                <th>Prix</th>\n            </tr>\n        </thead>\n         \n        <th>Total à payer</th>\n        <td>32 €<span style=\\\"font-size:10px\\\"> hors frais de livraison</span></td>\n        </table>\n        <span>Frais de livraison : 0.5 € (Merignac)</span>\n        <h5>Total à payer : 32.5 €</h5>\n    </div>\n    <style>\n        table{\n            width: 100%;\n            border-collapse: collapse;\n        }        \n        th, td{\n            padding: 8%;\n            border: 1px solid #ddd;\n            text-align:left;\n        }\n        thead{\n            background: #f2f2f2;\n        }        \n        tbody tr:nth-child(odd){\n            background: #f9f9f9 ;      \n        }        \n    </style>\\\";i:3;s:5:\\\"utf-8\\\";i:4;a:0:{}i:5;a:2:{i:0;O:37:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\\":2:{s:46:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\0headers\\\";a:3:{s:4:\\\"from\\\";a:1:{i:0;O:47:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:4:\\\"From\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:58:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\0addresses\\\";a:1:{i:0;O:30:\\\"Symfony\\\\Component\\\\Mime\\\\Address\\\":2:{s:39:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0address\\\";s:18:\\\"bidkad@hotmail.com\\\";s:36:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0name\\\";s:0:\\\"\\\";}}}}s:2:\\\"to\\\";a:1:{i:0;O:47:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:2:\\\"To\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:58:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\MailboxListHeader\\0addresses\\\";a:1:{i:0;O:30:\\\"Symfony\\\\Component\\\\Mime\\\\Address\\\":2:{s:39:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0address\\\";s:28:\\\"YamiNoSekai@kingdomheart.com\\\";s:36:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Address\\0name\\\";s:0:\\\"\\\";}}}}s:7:\\\"subject\\\";a:1:{i:0;O:48:\\\"Symfony\\\\Component\\\\Mime\\\\Header\\\\UnstructuredHeader\\\":5:{s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0name\\\";s:7:\\\"Subject\\\";s:56:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lineLength\\\";i:76;s:50:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0lang\\\";N;s:53:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\AbstractHeader\\0charset\\\";s:5:\\\"utf-8\\\";s:55:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\UnstructuredHeader\\0value\\\";s:41:\\\"Confirmation de réception de la commande\\\";}}}s:49:\\\"\\0Symfony\\\\Component\\\\Mime\\\\Header\\\\Headers\\0lineLength\\\";i:76;}i:1;N;}}s:61:\\\"\\0Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\0envelope\\\";N;}}', '[]', 'default', '2026-03-26 14:33:55', '2026-03-26 14:33:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -192,34 +202,49 @@ CREATE TABLE IF NOT EXISTS `order` (
   `total_price` double NOT NULL,
   `is_completed` tinyint DEFAULT NULL,
   `email` varchar(255) NOT NULL,
+  `is_payment_completed` tinyint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_F52993988BAC62AF` (`city_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `order`
 --
 
-INSERT INTO `order` (`id`, `first_name`, `last_name`, `phone`, `adress`, `created_at`, `city_id`, `pay_on_delivery`, `total_price`, `is_completed`, `email`) VALUES
-(11, 'ROKUSASU', 'Sora', '0613010111', 'Place de la Fontaine', '2026-03-24 14:23:26', 1, 1, 41, 1, ''),
-(12, 'ROKUSASU', 'Sora', '0613010111', 'Place de la Fontaine', '2026-03-24 14:24:01', 3, 1, 7, 1, ''),
-(10, 'ROKUSASU', 'Sora', '0613010111', 'Place de la Fontaine', '2026-03-24 14:21:51', 1, 1, 14, NULL, ''),
-(13, 'Piérick', 'JACQUET', '849', '84', '2026-03-25 08:07:14', 1, 1, 32, 1, ''),
-(14, 'Piérick', 'JACQUET', '3783', '3783', '2026-03-25 08:48:35', 1, 1, 7, NULL, ''),
-(15, 'Piérick', 'JACQUET', '849', '84', '2026-03-25 09:28:01', 4, 1, 21, NULL, ''),
-(16, 'Piérick', 'JACQUET', '1651651', 'ffgvsgrgb', '2026-03-25 09:57:48', 3, 1, 18, NULL, 'pierick.jacquet@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `ordere`
---
-
-DROP TABLE IF EXISTS `ordere`;
-CREATE TABLE IF NOT EXISTS `ordere` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `order` (`id`, `first_name`, `last_name`, `phone`, `adress`, `created_at`, `city_id`, `pay_on_delivery`, `total_price`, `is_completed`, `email`, `is_payment_completed`) VALUES
+(11, 'ROKUSASU', 'Sora', '0613010111', 'Place de la Fontaine', '2026-03-24 14:23:26', 1, 1, 41, 1, '', 0),
+(12, 'ROKUSASU', 'Sora', '0613010111', 'Place de la Fontaine', '2026-03-24 14:24:01', 3, 1, 7, 1, '', 0),
+(10, 'ROKUSASU', 'Sora', '0613010111', 'Place de la Fontaine', '2026-03-24 14:21:51', 1, 1, 14, NULL, '', 0),
+(13, 'Piérick', 'JACQUET', '849', '84', '2026-03-25 08:07:14', 1, 1, 32, 1, '', 0),
+(14, 'Piérick', 'JACQUET', '3783', '3783', '2026-03-25 08:48:35', 1, 1, 7, NULL, '', 0),
+(15, 'Piérick', 'JACQUET', '849', '84', '2026-03-25 09:28:01', 4, 1, 21, NULL, '', 0),
+(16, 'Piérick', 'JACQUET', '1651651', 'ffgvsgrgb', '2026-03-25 09:57:48', 3, 1, 18, NULL, 'pierick.jacquet@gmail.com', 0),
+(17, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 13:12:58', 1, 1, 208, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(18, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 13:14:05', 1, 0, 11, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(19, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 13:14:20', 1, 0, 11, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(20, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 13:14:21', 1, 0, 11, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(21, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 13:14:22', 1, 0, 11, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(22, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 13:14:23', 1, 0, 11, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(23, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 13:14:24', 1, 0, 11, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(24, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 13:14:25', 1, 0, 11, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(25, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 14:27:23', 1, 0, 14, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(26, 'Sora', 'ROKUSASU', '0613010111', 'shdnn', '2026-03-26 14:28:58', 1, 0, 21, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(27, 'Sora', 'ROKUSASU', '0613010111', 'shdnn', '2026-03-26 14:29:05', 1, 1, 21, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(28, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 14:32:19', 1, 0, 25, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(29, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 14:33:48', 1, 0, 32, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(30, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 14:33:55', 1, 1, 32, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(31, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 14:38:43', 1, 0, 7, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(32, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 14:40:46', 1, 0, 14, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(33, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 14:42:21', 1, 0, 25, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(34, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 14:46:00', 1, 0, 32, NULL, 'YamiNoSekai@kingdomheart.com', 0),
+(35, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 15:02:58', 1, 0, 35, NULL, 'YamiNoSekai@kingdomheart.com', 1),
+(36, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-26 15:04:59', 1, 0, 42, NULL, 'YamiNoSekai@kingdomheart.com', 1),
+(37, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-27 07:19:44', 1, 0, 49.5, 1, 'YamiNoSekai@kingdomheart.com', 0),
+(38, 'Piérick', 'JACQUET', '0625413549', '61 bis Rue de Quinsus', '2026-03-27 07:21:26', 1, 0, 56.5, 1, 'pierick.jacquet@gmail.com', 0),
+(39, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-27 07:27:10', 5, 0, 45.29, 1, 'YamiNoSekai@kingdomheart.com', 0),
+(40, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-27 07:33:31', 1, 0, 36.5, 1, 'YamiNoSekai@kingdomheart.com', 0),
+(41, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-27 07:34:55', 4, 0, 73.22, 1, 'YamiNoSekai@kingdomheart.com', 0),
+(42, 'Sora', 'ROKUSASU', '0613010111', 'Place de la Fontaine', '2026-03-30 09:30:35', 3, 0, 74.72, NULL, 'YamiNoSekai@kingdomheart.com', 0);
 
 -- --------------------------------------------------------
 
@@ -236,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `order_products` (
   PRIMARY KEY (`id`),
   KEY `IDX_5242B8EBA35F2858` (`_order_id`),
   KEY `IDX_5242B8EB4584665A` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `order_products`
@@ -256,7 +281,70 @@ INSERT INTO `order_products` (`id`, `qte`, `_order_id`, `product_id`) VALUES
 (17, 1, 15, 32),
 (18, 1, 16, 36),
 (19, 1, 16, 32),
-(20, 1, 16, 31);
+(20, 1, 16, 31),
+(21, 1, 17, 32),
+(22, 11, 17, 36),
+(23, 2, 17, 31),
+(24, 1, 17, 13),
+(25, 2, 17, 35),
+(26, 1, 17, 20),
+(27, 1, 18, 35),
+(28, 1, 19, 35),
+(29, 1, 20, 35),
+(30, 1, 21, 35),
+(31, 1, 22, 35),
+(32, 1, 23, 35),
+(33, 1, 24, 35),
+(34, 1, 25, 35),
+(35, 1, 25, 1),
+(36, 1, 26, 35),
+(37, 1, 26, 1),
+(38, 1, 26, 36),
+(39, 1, 27, 35),
+(40, 1, 27, 1),
+(41, 1, 27, 36),
+(42, 1, 28, 29),
+(43, 1, 28, 34),
+(44, 1, 28, 31),
+(45, 1, 28, 36),
+(46, 1, 29, 29),
+(47, 1, 29, 34),
+(48, 1, 29, 31),
+(49, 2, 29, 36),
+(50, 1, 30, 29),
+(51, 1, 30, 34),
+(52, 1, 30, 31),
+(53, 2, 30, 36),
+(54, 1, 31, 36),
+(55, 2, 32, 36),
+(56, 2, 33, 36),
+(57, 1, 33, 35),
+(58, 3, 34, 36),
+(59, 1, 34, 35),
+(60, 3, 35, 36),
+(61, 1, 35, 35),
+(62, 1, 35, 32),
+(63, 4, 36, 36),
+(64, 1, 36, 35),
+(65, 1, 36, 32),
+(66, 5, 37, 36),
+(67, 1, 37, 35),
+(68, 1, 37, 32),
+(69, 6, 38, 36),
+(70, 1, 38, 35),
+(71, 1, 38, 32),
+(72, 1, 39, 36),
+(73, 1, 39, 35),
+(74, 2, 40, 36),
+(75, 2, 40, 35),
+(76, 7, 41, 36),
+(77, 1, 41, 35),
+(78, 1, 41, 32),
+(79, 7, 42, 36),
+(80, 1, 42, 35),
+(81, 1, 42, 32),
+(82, 1, 42, 18),
+(83, 1, 42, 21);
 
 -- --------------------------------------------------------
 
