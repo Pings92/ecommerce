@@ -76,6 +76,5 @@ final class CategoryController extends AbstractController
     //success est un type de message flash qui indique que l'opération a été effectuée avec succès. Lorsque vous ajoutez un message flash de type success, il est généralement utilisé pour informer l'utilisateur que l'action qu'il a entreprise a été réalisée avec succès, comme la création, la mise à jour ou la suppression d'une ressource.
     //success correspond à une classe CSS qui peut être utilisée pour styliser le message flash de manière appropriée, souvent avec une couleur verte ou un indicateur visuel positif pour signaler le succès de l'opération.
     return $this->redirectToRoute('app_category');
-
     }
 }
